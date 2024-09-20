@@ -1,0 +1,4 @@
+scc/utils/Hash.class
+scc/srv/MainApplication.class
+scc/srv/MediaResource.class
+scc/srv/ControlResource.class

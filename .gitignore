@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java
 # Edit at https://www.toptal.com/developers/gitignore?templates=java
+scc2425-tukano/target
 .DS_Store
+./.idea
 ### Java ###
 # Compiled class file
 *.class

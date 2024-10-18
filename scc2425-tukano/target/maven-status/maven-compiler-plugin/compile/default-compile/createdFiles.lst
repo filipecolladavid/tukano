@@ -7,8 +7,8 @@ tukano/impl/storage/BlobStorage.class
 utils/Args.class
 tukano/impl/rest/utils/GenericExceptionMapper.class
 tukano/api/Result$ErrorCode.class
-tukano/clients/rest/RestShortsClient$3.class
 tukano/api/Users.class
+tukano/clients/rest/RestShortsClient$3.class
 tukano/api/OkResult.class
 tukano/api/rest/RestBlobs.class
 test/Test.class
@@ -27,6 +27,7 @@ tukano/clients/rest/RestShortsClient$2.class
 tukano/clients/rest/RestShortsClient$1.class
 utils/JSON.class
 tukano/api/Short.class
+tukano/impl/azure/AzureBlobs.class
 utils/IO.class
 utils/Props.class
 tukano/impl/JavaUsers.class
@@ -46,6 +47,8 @@ tukano/impl/data/Likes.class
 tukano/clients/rest/RestShortsClient$4.class
 utils/TryCatch$ThrowableSupplier.class
 tukano/impl/JavaBlobs.class
+tukano/impl/azure/AzureShorts.class
+tukano/impl/azure/AzureUsers.class
 tukano/api/Shorts.class
 tukano/impl/rest/RestResource$1.class
 tukano/impl/rest/RestShortsResource.class

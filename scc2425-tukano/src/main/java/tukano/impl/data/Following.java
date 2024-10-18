@@ -1,64 +1,74 @@
 package tukano.impl.data;
 
 import java.util.Objects;
+import java.util.UUID;
+
+import org.hibernate.annotations.PartitionKey;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Following{
+public class Following {
 
-	@Id 
-	String follower;
-	
-	@Id 
-	String followee;
+    @Id
+    String id;
 
-	Following() {}
+    @PartitionKey
+    String followee;
 
-	public Following(String follower, String followee) {
-		super();
-		this.follower = follower;
-		this.followee = followee;
-	}
+    String follower;
 
-	public String getFollower() {
-		return follower;
-	}
+    Following() {
+    }
 
-	public void setFollower(String follower) {
-		this.follower = follower;
-	}
+    public Following(String follower, String followee) {
+        super();
+        this.id = UUID.randomUUID().toString();
+        this.follower = follower;
+        this.followee = followee;
+    }
 
-	public String getFollowee() {
-		return followee;
-	}
+    public String getId() {
+        return this.id;
+    }
 
-	public void setFollowee(String followee) {
-		this.followee = followee;
-	}
+    public String getFollower() {
+        return follower;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(followee, follower);
-	}
+    public void setFollower(String follower) {
+        this.follower = follower;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Following other = (Following) obj;
-		return Objects.equals(followee, other.followee) && Objects.equals(follower, other.follower);
-	}
+    public String getFollowee() {
+        return followee;
+    }
 
-	@Override
-	public String toString() {
-		return "Following [follower=" + follower + ", followee=" + followee + "]";
-	}
-	
-	
+    public void setFollowee(String followee) {
+        this.followee = followee;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(followee, follower);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Following other = (Following) obj;
+        return Objects.equals(followee, other.followee) && Objects.equals(follower, other.follower);
+    }
+
+    @Override
+    public String toString() {
+        return "Following [follower=" + follower + ", followee=" + followee + "]";
+    }
+
 }

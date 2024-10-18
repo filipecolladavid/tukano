@@ -26,8 +26,8 @@ utils/Sleep.class
 tukano/clients/rest/RestShortsClient$2.class
 tukano/clients/rest/RestShortsClient$1.class
 utils/JSON.class
-tukano/api/Short.class
 tukano/impl/azure/AzureBlobs.class
+tukano/api/Short.class
 utils/IO.class
 utils/Props.class
 tukano/impl/JavaUsers.class

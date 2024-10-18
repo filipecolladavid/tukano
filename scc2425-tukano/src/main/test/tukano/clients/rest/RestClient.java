@@ -19,6 +19,7 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import tukano.api.Result;
 import tukano.api.Result.ErrorCode;
 import utils.Sleep;
@@ -41,6 +42,7 @@ public class RestClient {
 	protected RestClient(String serverURI, String servicePath ) {
 		this.serverURI = serverURI;
 		this.config = new ClientConfig();
+		config.register(JacksonJsonProvider.class);
 
 		config.property(ClientProperties.READ_TIMEOUT, READ_TIMEOUT);
 		config.property(ClientProperties.CONNECT_TIMEOUT, CONNECT_TIMEOUT);

@@ -19,20 +19,23 @@ public class Test {
 	}
 	
 	public static void main(String[] args ) throws Exception {
-		new Thread( () -> {	
-			try { 
-				TukanoRestServer.main( new String[] {} );
-			} catch( Exception x ) {
-				x.printStackTrace();
-			}
-		}).start();
+//		new Thread( () -> {
+//			try {
+//				TukanoRestServer.main( new String[] {} );
+//			} catch( Exception x ) {
+//				x.printStackTrace();
+//			}
+//		}).start();
 
-		
+		// Start the server and wait for it to initialize
+		TukanoRestServer server = new TukanoRestServer();
 		Thread.sleep(1000);
 		
 		var serverURI = String.format("http://localhost:%s/rest", TukanoRestServer.PORT);
-		
-		var blobs = new RestBlobsClient(serverURI);
+
+		var serverURIAzure = "https://tukano-70056-70666-1.azurewebsites.net/rest";
+
+		var blobs = new RestBlobsClient(serverURIAzure);
 		var users = new RestUsersClient( serverURI);
 		var shorts = new RestShortsClient(serverURI);
 				

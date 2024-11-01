@@ -9,13 +9,13 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-    <display-name>SCC BackEnd</display-name>
+    <display-name>Tukano SCC BackEnd</display-name>
  <servlet>
     <servlet-name>Resteasy</servlet-name>
     <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
      <init-param>
         <param-name>jakarta.ws.rs.Application</param-name>
-        <param-value>scc.srv.MainApplication</param-value>
+        <param-value>tukano.impl.rest.TukanoRestServer</param-value>
     </init-param>
 </servlet>
 <servlet-mapping>

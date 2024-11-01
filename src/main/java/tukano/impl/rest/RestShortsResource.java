@@ -7,11 +7,12 @@ import tukano.api.Short;
 import tukano.api.Shorts;
 import tukano.api.rest.RestShorts;
 import tukano.impl.JavaShorts;
+import tukano.impl.azure.AzureShorts;
 
 @Singleton
 public class RestShortsResource extends RestResource implements RestShorts {
 
-	static final Shorts impl = JavaShorts.getInstance();
+	static final Shorts impl = AzureShorts.getInstance();
 		
 	@Override
 	public Short createShort(String userId, String password) {

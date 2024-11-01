@@ -1,0 +1,9 @@
+# Date : 1/11/2024
+# Blobs
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=tukano70666;AccountKey=Uavz6KxqxAuZYBM8AoQMJuf28u2xeUllekIhpdsyj8U8QQqdAUv78fkCghSrSqZdD7yDBm61khZw+AStTpSIxA==;EndpointSuffix=core.windows.net
+CONTAINER_NAME=tukano
+STORAGE_ACCOUNT=tukano70666
+# Cosmos
+COSMOSDB_URL=https://tukanocosmosdb.documents.azure.com:443/
+COSMOSDB_KEY=EZRnA2OwniKHhYWlywc7jSTnMZriA0rYdUEXPtPNjGIkDWkXd7blahn0MiykNR2bqYdZjvI6amBbACDbtuHbDA==
+COSMOSDB_DATABASE=tukano70666

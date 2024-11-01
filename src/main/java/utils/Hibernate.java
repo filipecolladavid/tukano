@@ -23,7 +23,7 @@ import tukano.api.Result.ErrorCode;
 public class Hibernate {
 //	private static Logger Log = Logger.getLogger(Hibernate.class.getName());
 
-	private static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
+	private static final String HIBERNATE_CFG_FILE = "/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/hibernate.cfg.xml";
 	private SessionFactory sessionFactory;
 	private static Hibernate instance;
 
@@ -35,6 +35,7 @@ public class Hibernate {
 			e.printStackTrace();
 		}
 	}
+	//[/usr/local/tomcat/webapp/WEB-INF/classes/hibernate.cfg.xml]
 
 	/**
 	 * Returns the Hibernate instance, initializing if necessary. Requires a

@@ -44,7 +44,7 @@ public interface Blobs {
 	/**
 	 * Deletes all short video blob resources from a given userId.
 	 * 
-	 * @param userid the id of the owner of the blobs;
+	 * @param userId the id of the owner of the blobs;
 	 */
 	Result<Void> deleteAllBlobs( String userId, String token );
 }

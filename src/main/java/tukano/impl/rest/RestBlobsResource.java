@@ -4,6 +4,7 @@ import jakarta.inject.Singleton;
 import tukano.api.Blobs;
 import tukano.api.rest.RestBlobs;
 import tukano.impl.JavaBlobs;
+import tukano.impl.azure.AzureBlobs;
 
 @Singleton
 public class RestBlobsResource extends RestResource implements RestBlobs {
@@ -11,7 +12,7 @@ public class RestBlobsResource extends RestResource implements RestBlobs {
 	final Blobs impl;
 	
 	public RestBlobsResource() {
-		this.impl = JavaBlobs.getInstance();
+		this.impl = AzureBlobs.getInstance();
 	}
 	
 	@Override

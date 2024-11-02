@@ -1,20 +1,19 @@
 # Date : 1/11/2024
 # Blobs
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=scc70056;AccountKey=kgk69wBGUOhxvafNpqniO6eaON4nT07gSlH798giINNxBaDWhDqpuAHUjrSM8AyvhumH7xZxCK8Q+ASt19dFHg==;EndpointSuffix=core.windows.net
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=tukanosa70666;AccountKey=lfFrH/ES6DQ4qO/c4kfGFDRsadTpuNPL3P0cVXBjlpF3ApyxpC66/q6IjKYsYC4Rw0NR1p0WkSZF+ASt1zF7sw==;EndpointSuffix=core.windows.net
 CONTAINER_NAME=tukano
-STORAGE_ACCOUNT=scc70056
+STORAGE_ACCOUNT=tukanosa70666
 # Cosmos NOSQL
-COSMOSDB_NOSQL_URL=https://scc70056.documents.azure.com/
-COSMOSDB_NOSQL_KEY=fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==
-COSMOSDB_NOSQL_NAME=scc70056
-SHORTS_DB_COLLECTION = "shorts";
-LIKES_DB_COLLECTION = "likes";
-FOLLOWERS_DB_COLLECTION = "followers";
+COSMOSDB_NOSQL_URL=https://tukanocosmos70666.documents.azure.com:443/
+COSMOSDB_NOSQL_KEY=WG0ZKVJb6XrDwSnEDsdVGR4xJJHgZgDO1zCv3cZXA4d33w378sGMdBpXNzUTciGyBYDojiNDfwEzACDbISs35A==
+COSMOSDB_NOSQL_NAME=tukano
+SHORTS_DB_COLLECTION = shorts
+LIKES_DB_COLLECTION = likes
+FOLLOWERS_DB_COLLECTION = followers
 # Cosmos SQL
-COSMOSDB_SQL_KEY = "https://scc70056.documents.azure.com/";
-COSMOSDB_SQL_KEY = "fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==";
-COSMOSDB_SQL_NAME = "scc70056";
+COSMOSDB_SQL_KEY = https://scc70056.documents.azure.com/
+COSMOSDB_SQL_KEY = fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==
+COSMOSDB_SQL_NAME = scc70056;
 # Cache
-REDIS_HOST=tukanocache70666.redis.cache.windows.net
-REDISPORT=
-REDIS_PASSWORD=h7TOYAyTlBhpdG2TI9fyOHABkjCSCa7yEAzCaOdSrtk=
+REDIS_HOST=tukano.redis.cache.windows.net
+REDIS_PASSWORD=Ts0LqkiLtrqhna9Bb3ag5Vnj9jcXYf1GlAzCaLlScl0=

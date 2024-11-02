@@ -80,12 +80,12 @@ import tukano.impl.rest.TukanoRestServer;
         }
 
         private AzureShorts() {
-            AzureShorts.endpoint = System.getProperty("COSMOSDB_URL");
-            AzureShorts.DB_KEY = System.getProperty("COSMOSDB_KEY");
-            AzureShorts.DB_NAME = System.getProperty("COSMOSDB_NAME");
-            AzureShorts.SHORTS_DB_COLLECTION = "shorts";
-            AzureShorts.LIKES_DB_COLLECTION = "likes";
-            AzureShorts.FOLLOWERS_DB_COLLECTION = "followers";
+            AzureShorts.endpoint = System.getProperty("COSMOSDB_NOSQL_URL");
+            AzureShorts.DB_KEY = System.getProperty("COSMOSDB_NOSQL_KEY");
+            AzureShorts.DB_NAME = System.getProperty("COSMOSDB_NOSQL_NAME");
+            AzureShorts.SHORTS_DB_COLLECTION = System.getProperty("SHORTS_DB_COLLECTION");
+            AzureShorts.LIKES_DB_COLLECTION = System.getProperty("LIKES_DB_COLLECTION");
+            AzureShorts.FOLLOWERS_DB_COLLECTION = System.getProperty("FOLLOWERS_DB_COLLECTION");
 
             AzureShorts.db = AzureShorts.cosmosClient.getDatabase(DB_NAME);
             AzureShorts.shortsDB = db.getContainer(SHORTS_DB_COLLECTION);

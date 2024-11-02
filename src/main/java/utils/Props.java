@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Properties;
@@ -18,15 +19,18 @@ public class Props {
 		return JSON.decode(val, clazz);
 	}
 
-	public static void load( String resourceFile ) {
-		try( var in = Props.class.getClassLoader().getResourceAsStream(resourceFile) ) {
+	public static void load(String resourceFile) {
+		System.out.println("Trying to load " + resourceFile);
+		try (var in = Props.class.getClassLoader().getResourceAsStream(resourceFile)) {
+			if (in == null) {
+				throw new FileNotFoundException("Resource not found: " + resourceFile);
+			}
 			var reader = new InputStreamReader(in);
 			var props = new Properties();
 			props.load(reader);
-			props.forEach( (k,v) -> System.setProperty(k.toString(), v.toString()));
-			System.getenv().forEach( System::setProperty );
-		}
-		catch( Exception x  ) {
+			props.forEach((k, v) -> System.setProperty(k.toString(), v.toString()));
+			System.getenv().forEach(System::setProperty);
+		} catch (Exception x) {
 			x.printStackTrace();
 		}
 	}

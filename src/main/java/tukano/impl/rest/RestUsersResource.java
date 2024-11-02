@@ -7,6 +7,7 @@ import tukano.api.User;
 import tukano.api.Users;
 import tukano.api.rest.RestUsers;
 import tukano.impl.JavaUsers;
+import tukano.impl.azure.AzureUsersWithNoSQL;
 import tukano.impl.azure.AzureUsersWithSQL;
 
 @Singleton
@@ -14,7 +15,7 @@ public class RestUsersResource extends RestResource implements RestUsers {
 
 	final Users impl;
 	public RestUsersResource() {
-		this.impl = AzureUsersWithSQL.getInstance();
+		this.impl = AzureUsersWithNoSQL.getInstance();
 	}
 	
 	@Override

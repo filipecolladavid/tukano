@@ -36,8 +36,13 @@ public class TukanoRestServer extends Application {
 		serverURI = String.format(SERVER_BASE_URI, IP.hostname(), PORT);
 
 		Token.setSecret(Args.valueOf("-secret", ""));
-		Props.load("/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/deployment.props");
-
+//		String configPath = System.getenv("CONFIG_PATH");
+//		if (configPath == null) {
+//			configPath = ""; // Default for docker can't use ENV
+//		}
+		String configPath = "deployment.props";
+		System.out.println(configPath);
+		Props.load(configPath);
 		Log.info(String.format("Tukano Server ready @ %s\n", serverURI));
 	}
 

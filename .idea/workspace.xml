@@ -5,18 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureBlobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureBlobs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureShorts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureShorts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestUsersResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestUsersResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Hex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Hex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Props.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Props.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment.props" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/deployment.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/test/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +280,7 @@
       <workItem from="1730471643178" duration="1545000" />
       <workItem from="1730473206608" duration="3288000" />
       <workItem from="1730477536045" duration="20994000" />
-      <workItem from="1730551790413" duration="7705000" />
+      <workItem from="1730551790413" duration="16577000" />
     </task>
     <servers />
   </component>

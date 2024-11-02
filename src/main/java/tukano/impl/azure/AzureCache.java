@@ -12,10 +12,10 @@ public class AzureCache {
 
     private static JedisPool jedisPoolInstance;
 
-    private static String RedisHost = "tukano-70056.redis.cache.windows.net";
+    private static String RedisHost = System.getenv("REDIS_HOST");
     private static int RedisPort = 6380;
     private static int RedisTimeout = 1000;
-    private static String RedisPassword = "FOGAAXVgtJaYiXLlFbyJmeo7bLefTZvXkAzCaEbfETw=";
+    private static String RedisPassword = System.getenv("REDIS_PASSWORD");
     private static boolean RedisSSL = true;
 
     synchronized public static AzureCache getInstance() {

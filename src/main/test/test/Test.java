@@ -36,8 +36,8 @@ public class Test {
 		var serverURIAzure = "https://tukano-70056-70666-1.azurewebsites.net/rest";
 
 		var blobs = new RestBlobsClient(serverURIAzure);
-		var users = new RestUsersClient( serverURI);
-		var shorts = new RestShortsClient(serverURI);
+		var users = new RestUsersClient( serverURIAzure);
+		var shorts = new RestShortsClient(serverURIAzure);
 				
 		 show(users.createUser( new User("wales", "12345", "jimmy@wikipedia.pt", "Jimmy Wales") ));
 		 

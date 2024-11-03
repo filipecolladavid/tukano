@@ -7,14 +7,14 @@ module.exports = {
     uploadRandomizedUser,
     processRegisterReply,
     createRandomShort,
-    processShortReply
+    processShortReply,
+    generateRandomBlob,
+    processBlobReply
 }
 
 
-const fs = require('fs') // Needed for access to blobs.
 
 var registeredUsers = []
-var images = []
 
 // All endpoints starting with the following prefixes will be aggregated in the same for the statistics
 var statsPrefix = [ ["/rest/media/","GET"],
@@ -127,3 +127,40 @@ function processShortReply(requestParams, response, context, ee, next) {
     }
     return next();
 }
+
+
+/**
+ * Generates a random blob of data for testing blob uploads
+ */
+function generateRandomBlob(requestParams, context, ee, next) {
+    const blobSize = Math.floor(Math.random() * 1024) + 512; // Random size between 512 and 1536 bytes
+    const blob = Buffer.alloc(blobSize);
+    for (let i = 0; i < blobSize; i++) {
+        blob[i] = Math.floor(Math.random() * 256);
+    }
+    requestParams.body = blob;
+    return next();
+}
+
+/**
+ * Process reply after uploading a blob
+ */
+function processBlobReply(requestParams, response, context, ee, next) {
+    if (typeof response.body !== 'undefined' && response.body.length > 0) {
+        const blobInfo = JSON.parse(response.body);
+
+        // Example: Log the blob ID or URL
+        console.log("Blob uploaded successfully:", blobInfo);
+
+        // Optionally store blob information for further use
+        context.vars.lastUploadedBlobUrl = blobInfo.blobUrl; // Adjust based on actual response structure
+
+        // You can also keep track of all uploaded blobs if needed
+        if (!context.vars.uploadedBlobs) {
+            context.vars.uploadedBlobs = [];
+        }
+        context.vars.uploadedBlobs.push(blobInfo);
+    }
+    return next();
+}
+

@@ -12,7 +12,7 @@ config:
       duration: 30
       arrivalRate: 10
 scenarios:
-  - name: 'Register and manage user'
+  - name: 'Register, create short and blob'
     weight: 1
     flow:
       - post:
@@ -40,6 +40,13 @@ scenarios:
             as: "shortId"
       - get:
           url: "/shorts/{{ shortId }}"
-      - get:
-          url: "/shorts/{{ userId }}/shorts"
+      - post:
+          url: "/blobs/{{ $randomString() }}"
+          headers:
+            Content-Type: application/json
+            Accept: application/json
+          qs:
+            pwd: "{{ pwd }}"
+          beforeRequest: "generateRandomBlob"
+          afterResponse: "processBlobReply"
 

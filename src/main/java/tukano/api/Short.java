@@ -29,6 +29,7 @@ public class Short {
     String blobUrl;
     long timestamp;
     int totalLikes;
+    int views;
 
     public Short() {
     }
@@ -41,6 +42,7 @@ public class Short {
         this.blobUrl = blobUrl;
         this.timestamp = timestamp;
         this.totalLikes = totalLikes;
+        this.views = 0;
     }
 
     public Short(String shortId, String ownerId, String blobUrl) {
@@ -51,8 +53,8 @@ public class Short {
         return id;
     }
 
-    public void setId(String userId) {
-        this.id = userId;
+    public void setId(String shortId) {
+        this.id = shortId;
     }
 
     public String getShortId() {
@@ -95,9 +97,18 @@ public class Short {
         this.totalLikes = totalLikes;
     }
 
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
     @Override
     public String toString() {
-        return "Short [shortId=" + shortId + ", ownerId=" + ownerId + ", blobUrl=" + blobUrl + ", timestamp="
+        return "Short [id=" + id + ", shortId=" + shortId + ", ownerId=" + ownerId + ", blobUrl=" + blobUrl
+                + ", timestamp="
                 + timestamp + ", totalLikes=" + totalLikes + "]";
     }
 

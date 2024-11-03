@@ -2,11 +2,13 @@ package tukano.impl.azure;
 
 import static java.lang.String.format;
 import static tukano.api.Result.error;
+import static tukano.api.Result.errorOrResult;
 import static tukano.api.Result.ok;
 import static tukano.api.Result.ErrorCode.BAD_REQUEST;
 import static tukano.api.Result.ErrorCode.FORBIDDEN;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -24,9 +26,10 @@ import tukano.api.Result;
 import tukano.api.Result.ErrorCode;
 import tukano.api.User;
 import tukano.api.Users;
+import tukano.impl.Token;
 
-public class AzureUsers implements Users {
-    private static Logger Log = Logger.getLogger(AzureUsers.class.getName());
+public class AzureUsersWithNoSQL implements Users {
+    private static Logger Log = Logger.getLogger(AzureUsersWithNoSQL.class.getName());
     private static Users instance;
 
     private static String endpoint;
@@ -40,23 +43,24 @@ public class AzureUsers implements Users {
 
     synchronized public static Users getInstance() {
         if (instance == null) {
-            instance = new AzureUsers();
+            instance = new AzureUsersWithNoSQL();
         }
         return instance;
     }
 
-    private AzureUsers() {
-        AzureUsers.endpoint = "https://scc70056.documents.azure.com/";
-        AzureUsers.DB_KEY = "fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==";
-        AzureUsers.DB_NAME = "scc70056";
-        AzureUsers.DB_COLLECTION = "users";
+    private AzureUsersWithNoSQL() {
+        AzureUsersWithNoSQL.endpoint = System.getProperty("COSMOSDB_NOSQL_URL");
+        AzureUsersWithNoSQL.DB_KEY = System.getProperty("COSMOSDB_NOSQL_KEY");
+        AzureUsersWithNoSQL.DB_NAME = System.getProperty("COSMOSDB_NOSQL_NAME");
+        AzureUsersWithNoSQL.DB_COLLECTION = "users";
 
-        AzureUsers.cosmosClient = new CosmosClientBuilder().endpoint(endpoint).key(DB_KEY).gatewayMode()
+        AzureUsersWithNoSQL.cosmosClient = new CosmosClientBuilder().endpoint(endpoint).key(DB_KEY).gatewayMode()
                 .consistencyLevel(ConsistencyLevel.SESSION).connectionSharingAcrossClientsEnabled(true)
                 .contentResponseOnWriteEnabled(true).buildClient();
 
-        AzureUsers.db = AzureUsers.cosmosClient.getDatabase(DB_NAME);
-        AzureUsers.usersDB = db.getContainer(DB_COLLECTION);
+        AzureUsersWithNoSQL.db = AzureUsersWithNoSQL.cosmosClient.getDatabase(DB_NAME);
+        AzureUsersWithNoSQL.usersDB = db.getContainer(DB_COLLECTION);
+        Log.info("Created connection with DB");
     }
 
     @Override
@@ -65,32 +69,36 @@ public class AzureUsers implements Users {
 
         if (badUserInfo(user))
             return error(BAD_REQUEST);
-
         try {
-
-            User userAlreadyExists = this.getUser(user.getUserId(), user.getPwd()).value();
-
-            if (userAlreadyExists != null)
+            var userAlreadyExists = this.getUser(user.getUserId(), user.getPwd());
+            if (userAlreadyExists.isOK())
                 return error(ErrorCode.CONFLICT);
 
-            CosmosItemResponse<User> response = usersDB.createItem(user);
-            if (response.getStatusCode() < 300) {
-                return ok(response.getItem().getUserId());
-            } else {
-                return error(BAD_REQUEST);
+            if (userAlreadyExists.error() == ErrorCode.NOT_FOUND) {
+
+                user.setId(user.getUserId());
+                CosmosItemResponse<User> response = usersDB.createItem(user);
+                if (response.getStatusCode() < 300) {
+                    return ok(response.getItem().getUserId());
+                } else {
+                    return error(BAD_REQUEST);
+                }
             }
+            return error(userAlreadyExists.error());
 
         } catch (Exception e) {
             return error(ErrorCode.INTERNAL_ERROR);
         }
-    }
+
+    };
 
     @Override
     public Result<List<User>> searchUsers(String pattern) {
         Log.info(() -> format("searchUsers : patterns = %s\n", pattern));
 
         try {
-            var query = format("SELECT * FROM users u WHERE u.userId LIKE '%%%s%%'", pattern.toUpperCase());
+            String searchPattern = (pattern != null) ? pattern.toUpperCase() : "";
+            var query = format("SELECT * FROM users u WHERE u.userId LIKE '%%%s%%'", searchPattern);
             CosmosQueryRequestOptions options = new CosmosQueryRequestOptions();
 
             List<User> users = usersDB.queryItems(query, options, User.class).stream().map(User::copyWithoutPassword)
@@ -98,6 +106,7 @@ public class AzureUsers implements Users {
 
             return ok(users);
         } catch (Exception e) {
+            Log.info(e.getMessage());
             return error(ErrorCode.INTERNAL_ERROR);
         }
     }
@@ -109,48 +118,26 @@ public class AzureUsers implements Users {
         if (badUpdateUserInfo(userId, pwd, other))
             return error(BAD_REQUEST);
 
-        try {
-            User userToBeUpdated = this.getUser(userId, pwd).value();
-
-            if (userToBeUpdated == null)
-                return error(ErrorCode.NOT_FOUND);
-
-            User userUpdated = userToBeUpdated.updateFrom(other);
-
-            usersDB.replaceItem(userUpdated, userUpdated.getId(), new PartitionKey(userId),
-                    new CosmosItemRequestOptions());
-
-            return ok(userUpdated);
-        } catch (Exception e) {
-            return error(ErrorCode.INTERNAL_ERROR);
-        }
+        return errorOrResult(
+                validatedUserOrError(this.getUser(userId, pwd), pwd),
+                user -> {
+                    User userUpdated = user.updateFrom(other);
+                    usersDB.replaceItem(userUpdated, userUpdated.getId(), new PartitionKey(userId),
+                            new CosmosItemRequestOptions());
+                    return ok(userUpdated);
+                });
     }
 
     @Override
     public Result<User> deleteUser(String userId, String pwd) {
         Log.info(() -> format("deleteUser : userId = %s, pwd = %s\n", userId, pwd));
 
-        if (userId == null || pwd == null)
-            return error(BAD_REQUEST);
-
-        try {
-            User userToBeDeleted = this.getUser(userId, pwd).value();
-
-            if (userToBeDeleted == null)
-                return error(ErrorCode.NOT_FOUND);
-
-            CosmosItemResponse<Object> deletedResponse = usersDB.deleteItem(userToBeDeleted.getId(),
-                    new PartitionKey(userToBeDeleted.getUserId()),
-                    new CosmosItemRequestOptions());
-            if (deletedResponse.getStatusCode() < 300) {
-                System.out.println("Delete Status Code: " + deletedResponse.getStatusCode());
-                return ok();
-
-            } else
-                return error(FORBIDDEN);
-        } catch (Exception e) {
-            return error(Result.ErrorCode.INTERNAL_ERROR);
-        }
+        return errorOrResult(validatedUserOrError(this.getUser(userId, pwd), pwd), user -> {
+            AzureShorts.getInstance().deleteAllShorts(userId, pwd, Token.get(userId));
+            AzureBlobs.getInstance().deleteAllBlobs(userId, Token.get(userId));
+            usersDB.deleteItem(user.getId(), new PartitionKey(userId), new CosmosItemRequestOptions());
+            return ok();
+        });
     }
 
     @Override
@@ -159,18 +146,14 @@ public class AzureUsers implements Users {
 
         if (userId == null)
             return error(BAD_REQUEST);
-        try {
 
-            User user = usersDB
+        try {
+            Optional<User> user = usersDB
                     .queryItems(format("SELECT * FROM User u WHERE u.userId = '%s'", userId),
                             new CosmosQueryRequestOptions(), User.class)
-                    .stream().findFirst().get();
+                    .stream().findFirst();
 
-            if (user == null)
-                return error(ErrorCode.NOT_FOUND);
-
-            return ok(user);
-
+            return user.map(u -> ok(u)).orElse(error(ErrorCode.NOT_FOUND));
         } catch (Exception e) {
             return error(Result.ErrorCode.INTERNAL_ERROR);
         }
@@ -182,5 +165,12 @@ public class AzureUsers implements Users {
 
     private boolean badUserInfo(User user) {
         return (user.userId() == null || user.pwd() == null || user.displayName() == null || user.email() == null);
+    }
+
+    private Result<User> validatedUserOrError(Result<User> res, String pwd) {
+        if (res.isOK())
+            return res.value().getPwd().equals(pwd) ? res : error(FORBIDDEN);
+        else
+            return res;
     }
 }

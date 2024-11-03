@@ -1,110 +1,117 @@
 package tukano.api;
 
 import java.util.UUID;
-
 import org.hibernate.annotations.PartitionKey;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
+@Table(name = "\"users\"")
 public class User {
+	@Id
+	@Column(name = "\"id\"")
+	private String id;
 
-    @Id
-    private String id;
+	@PartitionKey
+	@Column(name = "\"userId\"", unique = true)
+	private String userId;
 
-    @PartitionKey
-    private String userId;
+	@Column(name = "\"pwd\"")
+	private String pwd;
 
-    private String pwd;
-    private String email;
-    private String displayName;
+	@Column(name = "\"email\"")
+	private String email;
 
-    public User() {
-    }
+	@Column(name = "\"displayName\"")
+	private String displayName;
 
-    public User(String userId, String pwd, String email, String displayName) {
-        this.id = UUID.randomUUID().toString();
-        this.pwd = pwd;
-        this.email = email;
-        this.userId = userId;
-        this.displayName = displayName;
-    }
+	public User() {
+	}
 
-    public String getId() {
-        return id;
-    }
+	public User(String userId, String pwd, String email, String displayName) {
+		this.id = UUID.randomUUID().toString();
+		this.pwd = pwd;
+		this.email = email;
+		this.userId = userId;
+		this.displayName = displayName;
+	}
 
-    public void setId(String userId) {
-        this.id = userId;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public void setId(String userId) {
+		this.id = userId != null ? userId : UUID.randomUUID().toString();
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public String getPwd() {
-        return pwd;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
+	public String getPwd() {
+		return pwd;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getDisplayName() {
-        return displayName;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
+	public String getDisplayName() {
+		return displayName;
+	}
 
-    public String userId() {
-        return userId;
-    }
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 
-    public String pwd() {
-        return pwd;
-    }
+	public String userId() {
+		return userId;
+	}
 
-    public String email() {
-        return email;
-    }
+	public String pwd() {
+		return pwd;
+	}
 
-    public String displayName() {
-        return displayName;
-    }
+	public String email() {
+		return email;
+	}
 
-    @Override
-    public String toString() {
-        return "User [userId=" + userId + ", pwd=" + pwd + ", email=" + email + ", displayName=" + displayName + "]";
-    }
+	public String displayName() {
+		return displayName;
+	}
 
-    public User copyWithoutPassword() {
-        var newUser = new User(userId, "", email, displayName);
-        newUser.setId(id);
-        return newUser;
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userId=" + userId + ", pwd=" + pwd + ", email=" + email + ", displayName="
+				+ displayName + "]";
+	}
 
-    public User updateFrom(User other) {
-        var updatedUser = new User(userId,
-                other.pwd != null ? other.pwd : pwd,
-                other.email != null ? other.email : email,
-                other.displayName != null ? other.displayName : displayName);
+	public User copyWithoutPassword() {
+		var newUser = new User(userId, "", email, displayName);
+		newUser.setId(id);
+		return newUser;
+	}
 
-        updatedUser.setId(id);
-        return updatedUser;
-    }
+	public User updateFrom(User other) {
+		var updatedUser = new User(userId,
+				other.pwd != null ? other.pwd : pwd,
+				other.email != null ? other.email : email,
+				other.displayName != null ? other.displayName : displayName);
+		updatedUser.setId(id);
+		return updatedUser;
+	}
 }

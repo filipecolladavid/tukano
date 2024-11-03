@@ -19,17 +19,23 @@ public class Test {
     }
 
     public static void main(String[] args) throws Exception {
-        new Thread(() -> {
-            try {
-                TukanoRestServer.main(new String[] {});
-            } catch (Exception x) {
-                x.printStackTrace();
-            }
-        }).start();
+        // new Thread( () -> {
+        // try {
+        // TukanoRestServer.main( new String[] {} );
+        // } catch( Exception x ) {
+        // x.printStackTrace();
+        // }
+        // }).start();
 
+        // Start the server and wait for it to initialize
+        TukanoRestServer server = new TukanoRestServer();
         Thread.sleep(1000);
 
-        var serverURI = String.format("http://localhost:%s/rest", TukanoRestServer.PORT);
+        var serverURILocal = String.format("http://localhost:%s/tukano/rest", TukanoRestServer.PORT);
+
+        var serverURIAzure = "https://tukano-70056-70666-1.azurewebsites.net/rest";
+        var serverURI = System.getProperty("ENV").equals("local") ? serverURILocal : serverURIAzure;
+        System.out.println(serverURI);
 
         var blobs = new RestBlobsClient(serverURI);
         var users = new RestUsersClient(serverURI);
@@ -39,9 +45,9 @@ public class Test {
 
         show(users.createUser(new User("liskov", "54321", "liskov@mit.edu", "Barbara Liskov")));
 
+        // TODO FIX
         show(users.updateUser("wales", "12345", new User("wales", "12345",
                 "jimmy@wikipedia.com", "")));
-
         show(users.searchUsers(""));
 
         Result<tukano.api.Short> s1, s2;
@@ -64,26 +70,24 @@ public class Test {
 
         var s2id = s2.value().getShortId();
 
-        System.out.println("======================================================");
         show(shorts.follow("liskov", "wales", true, "54321"));
-        show(shorts.follow("wales", "wales", true, "12345"));
-        // show(shorts.followers("wales", "12345"));
+        show(shorts.followers("wales", "12345"));
 
         show(shorts.like(s2id, "liskov", true, "54321"));
         show(shorts.like(s2id, "liskov", true, "54321"));
-        show(shorts.like(s2id, "wales", true, "12345"));
         show(shorts.likes(s2id, "54321"));
-        // show(shorts.getFeed("liskov", "12345"));
+        show(shorts.getFeed("liskov", "12345"));
         show(shorts.getShort(s2id));
 
         show(shorts.getShorts("wales"));
 
-        // show(shorts.followers("wales", "12345"));
+        show(shorts.followers("wales", "12345"));
 
-        // show(shorts.getFeed("liskov", "12345"));
+        show(shorts.getFeed("liskov", "12345"));
 
         show(shorts.getShort(s2id));
-
+        //
+        //
         // blobs.forEach( b -> {
         // var r = b.download(blobId);
         // System.out.println( Hex.of(Hash.sha256( bytes )) + "-->" +
@@ -91,8 +95,8 @@ public class Test {
         //
         // });
 
-        // show(users.deleteUser("wales", "12345"));
-        // show(users.deleteUser("liskov", "54321"));
+        show(users.deleteUser("wales", "12345"));
+        show(users.deleteUser("liskov", "54321"));
 
         System.exit(0);
     }

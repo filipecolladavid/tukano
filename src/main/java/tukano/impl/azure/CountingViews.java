@@ -16,7 +16,7 @@ public class CountingViews {
                     name = "req",
                     methods = {HttpMethod.POST},
                     authLevel = AuthorizationLevel.ANONYMOUS,
-                    route = "shorts/{shortId}/view")
+                    route = "shorts/{shortId}")
             HttpRequestMessage<Optional<String>> request,
             @BindingName("shortId") String shortId,
             final ExecutionContext context) {

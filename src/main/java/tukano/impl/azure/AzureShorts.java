@@ -104,7 +104,7 @@ public class AzureShorts implements Shorts {
         // For creating the right BlobURL
         this.containerName = System.getProperty("CONTAINER_NAME");
         this.storageAccount = System.getProperty("STORAGE_ACCOUNT");
-        this.baseURI = String.format("https://%s.blob.core.windows.net/%s/", storageAccount, containerName);
+        this.baseURI = String.format("https://%s.blob.core.windows.net/%s", storageAccount, containerName);
 
         this.cache = AzureCache.getInstance();
         this.gson = new Gson();

@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Artillery/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/Short.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/Short.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment.props" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/deployment.props" afterDir="false" />
-    </list>
+    <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -289,7 +281,7 @@
       <workItem from="1730551790413" duration="16577000" />
       <workItem from="1730581982486" duration="6156000" />
       <workItem from="1730596645852" duration="1576000" />
-      <workItem from="1730627508669" duration="7655000" />
+      <workItem from="1730627508669" duration="8379000" />
     </task>
     <servers />
   </component>

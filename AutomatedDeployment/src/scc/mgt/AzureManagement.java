@@ -48,10 +48,10 @@ public class AzureManagement {
 	static final boolean CREATE_REDIS = false;
 	static final boolean CREATE_STORAGE = true;
 	static final boolean CREATE_COSMOSDB = true;
-	static final boolean CREATE_FUNCTIONS = true;
+	static final boolean CREATE_FUNCTIONS = false;
 
 	// TODO: change your suffix and other names if you want
-	static final String MY_ID = "xxxxx"; // Add your suffix here
+	static final String MY_ID = "70666"; // Add your suffix here
 	
 	static final String AZURE_COSMOSDB_NAME = "cosmos" + MY_ID;	// Cosmos DB account name
 	static final String AZURE_COSMOSDB_DATABASE = "cosmosdb" + MY_ID;	// Cosmos DB database name

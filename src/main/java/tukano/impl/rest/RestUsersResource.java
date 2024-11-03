@@ -15,6 +15,7 @@ public class RestUsersResource extends RestResource implements RestUsers {
     final Users impl;
 
     public RestUsersResource() {
+
         if(System.getProperty("USER_DB_TYPE").equals("NOSQL")) {
             this.impl = AzureUsersWithNoSQL.getInstance();
         } else {

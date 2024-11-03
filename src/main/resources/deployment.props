@@ -1,5 +1,5 @@
 # Date : 1/11/2024
-ENV=cloud
+ENV=local
 USER_DB_TYPE=NOSQL
 
 # Cache
@@ -7,11 +7,11 @@ REDIS_HOST=tukano-70056.redis.cache.windows.net
 REDIS_PASSWORD=FOGAAXVgtJaYiXLlFbyJmeo7bLefTZvXkAzCaEbfETw=
 
 # BLOBS
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=P0KKFdZHryIaPRVkYNfZmiV6lFg3qYod/zmSvFcK+vg0+XXIfbifXGDRN5k6lFQG+IEjZp7Yp7fF+ASt/+z9OQ==;EndpointSuffix=core.windows.net
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=3SuFGFYyLaZgoh9Pevuz9+CyLTQoi6wQC2eiCEJuT+2E+u2Y20PVQ715BQyPtDsezUYG1hKKWy8Q+ASteSmUQA==;EndpointSuffix=core.windows.net
 STORAGE_ACCOUNT=sto70666northeurope
 CONTAINER_NAME=shorts
 # COSMOSDB
-COSMOSDB_NOSQL_KEY=dADyR4dv0RlcHf80uPGVsI9i7kPauBEdcdsWPF7P5bMDZjaVrhiqwHkuqQCDmg5LbKeh22yxPro8ACDbSp2DOw==
+COSMOSDB_NOSQL_KEY=Awf0fv3yP0bTofHFcetBzXNKzoj3oQoygtPrt9eroW0X2FF45R5wpAwyFDGtDYORZDugt5UOaWTRACDbqdvgyQ==
 COSMOSDB_NOSQL_URL=https://cosmos70666.documents.azure.com:443/
 COSMOSDB_NOSQL_NAME=cosmosdb70666
 SHORTS_DB_COLLECTION=shorts

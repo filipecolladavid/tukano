@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="" />
+    <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/src/scc/mgt/AzureManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/src/scc/mgt/AzureManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment.props" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/deployment.props" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +47,7 @@
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "deploy",
+    "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/fcd/Work/FCT/SCC/tukano-70056-70666/src/main/webapp/WEB-INF/classes",

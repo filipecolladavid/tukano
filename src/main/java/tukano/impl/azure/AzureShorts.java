@@ -425,6 +425,9 @@ public class AzureShorts implements Shorts {
     }
 
     protected Result<User> okUser(String userId, String pwd) {
+        if(System.getProperty("USER_DB_TYPE").equals("NOSQL")) {
+            return AzureUsersWithNoSQL.getInstance().getUser(userId, pwd);
+        }
         return AzureUsersWithSQL.getInstance().getUser(userId, pwd);
     }
 

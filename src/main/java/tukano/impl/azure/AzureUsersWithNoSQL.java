@@ -50,14 +50,8 @@ public class AzureUsersWithNoSQL implements Users {
 
     private AzureUsersWithNoSQL() {
         AzureUsersWithNoSQL.endpoint = System.getProperty("COSMOSDB_NOSQL_URL");
-        System.out.println("Read from file: "+AzureUsersWithNoSQL.endpoint);
-        // AzureUsersWithNoSQL.endpoint = "https://tukanocosmos70666.documents.azure.com:443/";
         AzureUsersWithNoSQL.DB_KEY = System.getProperty("COSMOSDB_NOSQL_KEY");
-        System.out.println("Read from file: "+AzureUsersWithNoSQL.DB_KEY);
-        // AzureUsersWithNoSQL.DB_KEY="Fukra045hs1fvOQSpU4mPYgtRCTF6mc2mULY2mBSVqMZt3zwzyOoNqdZrUEFkZGTyMYSsKZR7krcACDbkUZGMA==";
         AzureUsersWithNoSQL.DB_NAME = System.getProperty("COSMOSDB_NOSQL_NAME");
-        System.out.println("Read from file: "+AzureUsersWithNoSQL.DB_NAME);
-        // AzureUsersWithNoSQL.DB_NAME="tukanocosmosdb";
         AzureUsersWithNoSQL.DB_COLLECTION = "users";
 
         AzureUsersWithNoSQL.cosmosClient = new CosmosClientBuilder().endpoint(endpoint).key(DB_KEY).gatewayMode()

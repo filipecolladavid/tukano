@@ -22,6 +22,7 @@ public class Short {
 	String blobUrl;
 	long timestamp;
 	int totalLikes;
+	int views;
 
 	public Short() {}
 	
@@ -32,6 +33,7 @@ public class Short {
 		this.blobUrl = blobUrl;
 		this.timestamp = timestamp;
 		this.totalLikes = totalLikes;
+		this.views = 0;
 	}
 
 	public Short(String shortId, String ownerId, String blobUrl) {
@@ -77,6 +79,8 @@ public class Short {
 	public void setTotalLikes(int totalLikes) {
 		this.totalLikes = totalLikes;
 	}
+	public int getViews() {return views;}
+	public void setViews(int views) {this.views = views;}
 
 	@Override
 	public String toString() {

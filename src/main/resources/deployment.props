@@ -1,12 +1,12 @@
 # Date : 1/11/2024
 # Blobs
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=tukanosa70666;AccountKey=lfFrH/ES6DQ4qO/c4kfGFDRsadTpuNPL3P0cVXBjlpF3ApyxpC66/q6IjKYsYC4Rw0NR1p0WkSZF+ASt1zF7sw==;EndpointSuffix=core.windows.net
-CONTAINER_NAME=tukano
-STORAGE_ACCOUNT=tukanosa70666
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=tukanoblobssa;AccountKey=Ca88GZEDW6u8AASt8tXNGW3EFUdW69WxVBMLpVOX7R7gKmnTXdzUHyIy5nzU6pYHPfC29m2tvvs/+AStL1HZaA==;EndpointSuffix=core.windows.net
+CONTAINER_NAME=shorts
+STORAGE_ACCOUNT=tukanoblobssa
 # Cosmos NOSQL
-COSMOSDB_NOSQL_URL=https://tukanocosmos70666.documents.azure.com:443/
-COSMOSDB_NOSQL_KEY=WG0ZKVJb6XrDwSnEDsdVGR4xJJHgZgDO1zCv3cZXA4d33w378sGMdBpXNzUTciGyBYDojiNDfwEzACDbISs35A==
-COSMOSDB_NOSQL_NAME=tukano
+COSMOSDB_NOSQL_URL=https://tukanocomossa.documents.azure.com:443/
+COSMOSDB_NOSQL_KEY=Lh8aIApJId3Yt5STCJFeOxVxXz6GNbRJmezFz80lvXeGQUt2qEz3qcJEIF1FMXjfOkaMf99arWbEACDbtIc81g==
+COSMOSDB_NOSQL_NAME=tukanocosmosdb
 SHORTS_DB_COLLECTION = shorts
 LIKES_DB_COLLECTION = likes
 FOLLOWERS_DB_COLLECTION = followers
@@ -15,5 +15,5 @@ COSMOSDB_SQL_KEY = https://scc70056.documents.azure.com/
 COSMOSDB_SQL_KEY = fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==
 COSMOSDB_SQL_NAME = scc70056;
 # Cache
-REDIS_HOST=tukano.redis.cache.windows.net
-REDIS_PASSWORD=Ts0LqkiLtrqhna9Bb3ag5Vnj9jcXYf1GlAzCaLlScl0=
+REDIS_HOST=tukanocache70666.redis.cache.windows.net
+REDIS_PASSWORD=mxvlKhk4pt60N724xLMkmpRXCQob6Cc9MAzCaKQca1k=

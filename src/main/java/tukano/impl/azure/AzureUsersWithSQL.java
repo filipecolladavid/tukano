@@ -65,13 +65,16 @@ public class AzureUsersWithSQL implements Users {
     @Override
     public Result<User> getUser(String userId, String pwd) {
         Log.info(() -> format("getUser : userId = %s, pwd = %s\n", userId, pwd));
-        if (userId == null)
+        System.out.println("getUser : userId = " + userId + ", pwd = " + pwd);
+        if (userId == null) {
+            System.out.println("isNull");
             return error(BAD_REQUEST);
+        }
 
-        User cachedUser = getFromUserCache(userId);
+        User cachedUser = getUserFromCache(userId);
         if (cachedUser != null) {
             Log.info(() -> format("user cache hit: userId = %s\n", userId));
-            return validatedUserOrError(ok(cachedUser), pwd); // Validate password for cached user
+            return ok(cachedUser);
         }
 
         Log.info(() -> format("user cache miss: userId = %s\n", userId));
@@ -90,11 +93,17 @@ public class AzureUsersWithSQL implements Users {
             return error(BAD_REQUEST);
 
         try {
-            Result<User> user = validatedUserOrError(DB.getOne(userId, User.class), pwd);
-            if (!user.isOK())
+            // List<User> listUsers = DB.sql("select * from users where users.userid = '" + userId + "' LIMIT 1",
+            //         User.class);
+            //
+            List<User> listUsers = DB.sql("select * from users where users.\"userId\" = '" + userId + "' LIMIT 1",
+                    User.class);
+            if (listUsers.isEmpty())
                 return error(FORBIDDEN);
 
-            User updatedUser = user.value().updateFrom(other);
+            User user = listUsers.get(0);
+
+            User updatedUser = user.updateFrom(other);
             Result<User> result = DB.updateOne(updatedUser);
 
             if (result.isOK()) {
@@ -112,19 +121,57 @@ public class AzureUsersWithSQL implements Users {
     @Override
     public Result<User> deleteUser(String userId, String pwd) {
         Log.info(() -> format("deleteUser : userId = %s, pwd = %s\n", userId, pwd));
-        if (userId == null || pwd == null)
+        System.out.println("00000000000000000");
+        if (userId == null || pwd == null) {
+            System.out.println("111111111111111");
             return error(BAD_REQUEST);
-        return errorOrResult(validatedUserOrError(DB.getOne(userId, User.class), pwd), user -> {
-            AzureShorts.getInstance().deleteAllShorts(userId, pwd, Token.get(userId));
-            AzureBlobs.getInstance().deleteAllBlobs(userId, Token.get(userId));
-            Result<User> result = DB.deleteOne(user);
+        }
+        System.out.println("222222222222222");
+        try {
+            // List<User> listUsers = DB.sql("select * from users where users.userid = '" +
+            // userId + "' LIMIT 1",
+            List<User> listUsers = DB.sql("select * from users where users.\"userId\" = '" + userId + "' LIMIT 1",
+                    User.class);
+            System.out.println(listUsers);
+            if (listUsers.isEmpty()) {
+                return error(NOT_FOUND);
+            }
 
+            User user = listUsers.get(0);
+            System.out.println("33333333333333");
+            AzureShorts.getInstance().deleteAllShorts(user.userId(), pwd, Token.get(userId));
+            System.out.println("44444444444444");
+            AzureBlobs.getInstance().deleteAllBlobs(userId, Token.get(userId));
+            System.out.println("55555555555555");
+            Result<User> result = DB.deleteOne(user);
+            System.out.println("66666666666666");
             if (result.isOK()) {
                 deleteUserCache(user);
                 deleteSearchCache("");
             }
             return ok(user);
-        });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return error(INTERNAL_ERROR);
+        }
+
+        // return errorOrResult(validatedUserOrError(DB.getOne(userId, User.class),
+        // pwd), user -> {
+        // System.out.println("33333333333333");
+        // AzureShorts.getInstance().deleteAllShorts(userId, pwd, Token.get(userId));
+        // System.out.println("44444444444444");
+        // AzureBlobs.getInstance().deleteAllBlobs(userId, Token.get(userId));
+        // System.out.println("55555555555555");
+        // Result<User> result = DB.deleteOne(user);
+        // System.out.println("66666666666666");
+        //
+        // if (result.isOK()) {
+        // deleteUserCache(user);
+        // deleteSearchCache("");
+        // }
+        // return ok(user);
+        // });
     }
 
     @Override
@@ -157,10 +204,15 @@ public class AzureUsersWithSQL implements Users {
     }
 
     private Result<User> validatedUserOrError(Result<User> res, String pwd) {
-        if (res.isOK())
+        System.out.println("validatedUserOrError");
+        System.out.println(res);
+        System.out.println(res.isOK());
+        if (res.isOK()) {
+            System.out.println("isOK");
             return res.value().getPwd().equals(pwd) ? res : error(FORBIDDEN);
-        else
-            return res;
+        } else
+            System.out.println("error");
+        return res;
     }
 
     private boolean badUserInfo(User user) {
@@ -203,7 +255,7 @@ public class AzureUsersWithSQL implements Users {
             cache.set(getSearchCacheKey(pattern), gson.toJson(users));
     };
 
-    private User getFromUserCache(String userId) {
+    private User getUserFromCache(String userId) {
         var res = cache.get(getUserCacheKey(userId));
         if (res != null)
             return gson.fromJson(res, User.class);

@@ -12,8 +12,6 @@ import com.azure.storage.blob.BlobContainerClient;
 import static tukano.api.Result.ErrorCode.NOT_FOUND;
 import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.azure.storage.blob.models.BlobItem;
-import com.google.gson.Gson;
-
 
 import tukano.api.Blobs;
 import tukano.api.Result;
@@ -27,30 +25,25 @@ public class AzureBlobs implements Blobs {
     public String baseURI;
 
     private final AzureCache cache;
-    private final Gson gson;
 
     private String storageConnectionString;
     private String containerName;
     private String storageAccount;
     private BlobContainerClient containerClient;
 
-
     private static final String BLOB_CACHE_KEY = "blobs:";
     private static final int MAX_CACHE_SIZE = 1024 * 1024;
     private static final int CACHE_EXPIRY = 3600; // 1 hour in seconds
 
     private AzureBlobs() {
-        // this.storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc70056;AccountKey=kgk69wBGUOhxvafNpqniO6eaON4nT07gSlH798giINNxBaDWhDqpuAHUjrSM8AyvhumH7xZxCK8Q+ASt19dFHg==;EndpointSuffix=core.windows.net";
         this.storageConnectionString = System.getProperty("BLOB_STORE_CONNECTION");
-        // System.out.println("Storage Connection String: " + storageConnectionString);
-        this.containerName = System.getProperty("CONTAINER_NAME");;
+        this.containerName = System.getProperty("CONTAINER_NAME");
         this.containerClient = new BlobContainerClientBuilder().connectionString(storageConnectionString)
                 .containerName(containerName).buildClient();
         this.storageAccount = System.getProperty("STORAGE_ACCOUNT");
         this.baseURI = String.format("https://%s.blob.core.windows.net/%s/", storageAccount, containerName);
 
         this.cache = AzureCache.getInstance();
-        this.gson = new Gson();
     }
 
     synchronized public static Blobs getInstance() {

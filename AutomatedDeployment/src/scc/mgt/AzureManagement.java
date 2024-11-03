@@ -56,7 +56,7 @@ public class AzureManagement {
     static final String AZURE_COSMOSDB_NAME = "cosmos" + MY_ID; // Cosmos DB account name
     static final String AZURE_COSMOSDB_DATABASE = "cosmosdb" + MY_ID; // Cosmos DB database name
     static final String[] AZURE_COSMOSDB_COLLECTIONS = { "shorts", "followers", "likes" };
-    static final String[] BLOB_CONTAINERS = { "shorts" }; // TODO: Containers to add to the blob storage
+    static final String[] BLOB_CONTAINERS = { "shorts" };
 
     static final Region[] REGIONS = new Region[] { Region.EUROPE_NORTH }; // Define the regions to deploy resources here
 
@@ -111,8 +111,7 @@ public class AzureManagement {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////// Azure Storage Account CODE
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////
+    ////////////////////////////// Azure Storage Account CODE /////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static StorageAccount createStorageAccount(AzureResourceManager azure, String rgName, String name,
@@ -196,8 +195,7 @@ public class AzureManagement {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////// COSMOS DB CODE
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// /////////////////////////////////////////////////////////////////////
+    ////////////////////////////// COSMOS DB CODE /////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static CosmosDBAccount createCosmosDBAccount(AzureResourceManager azure, String rgName, String name,
@@ -427,9 +425,9 @@ public class AzureManagement {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////// AZURE DELETE CODE
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////// AZURE DELETE CODE //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void deleteResourceGroup(AzureResourceManager azure, String rgName) {
         azure.resourceGroups().deleteByName(rgName);
@@ -478,7 +476,7 @@ public class AzureManagement {
                                 for (String cont : BLOB_CONTAINERS)
                                     createBlobContainer(azure0, AZURE_RG_REGIONS[i], AZURE_STORAGE_NAME[i], cont);
                             }
-                            System.err.println("Azure Blobs Storage resources created with success");
+                            System.out.println("Azure Blobs Storage resources created with success");
 
                         } catch (Exception e) {
                             System.err.println("Error while creating storage resources");
@@ -503,11 +501,8 @@ public class AzureManagement {
                             }
                             CosmosClient cosmosClient = getCosmosClient(accountCosmosDB);
                             createCosmosDatabase(cosmosClient, AZURE_COSMOSDB_DATABASE);
-
-                            // TODO: create the collections you have in your application - mannually
-                            // TODO - check hibernate stuff
-                            // createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "users", "/id",
-                            // null);
+                            // TODO - check hibernate stuff - keep the same endpoint in hibernatecfg
+                            createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "users", "/id", null);
                             // Other collections
                             createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "shorts", "/shortId", null);
                             createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "followers", "/followee",

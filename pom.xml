@@ -10,10 +10,10 @@
 		<docker.config.path>/usr/local/tomcat/webapps/tukano/WEB-INF/classes</docker.config.path>
 		<azure.functions.maven.plugin.version>1.36.0</azure.functions.maven.plugin.version>
 		<azure.functions.java.library.version>3.1.0</azure.functions.java.library.version>
-		<functionAppName>CountingViews</functionAppName>
+		<functionAppName>fun70666northeurope</functionAppName>
 		<functionRegion>westeurope</functionRegion>
-		<functionStorageAccountName>tukanoblobssa</functionStorageAccountName>
-		<functionResourceGroup>scc-tukano-rg-70666</functionResourceGroup>
+		<functionStorageAccountName>sto70666northeurope</functionStorageAccountName>
+		<functionResourceGroup>rg70666-northeurope</functionResourceGroup>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<authors>xxxxx-xxxxx</authors>
 	</properties>
@@ -26,8 +26,8 @@
 				<version>2.13.0</version>
 			    <configuration>
 			        <schemaVersion>v2</schemaVersion>
-			        <resourceGroup>scc-tukano-rg-70666</resourceGroup>
-			        <appName>tukano-70056-70666-1</appName>
+			        <resourceGroup>rg70666-northeurope</resourceGroup>
+			        <appName>tukano-70056-70666-2</appName>
 			        <pricingTier>F1</pricingTier>
 			        <region>westeurope</region>
 					<appSettings>

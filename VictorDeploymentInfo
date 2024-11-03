@@ -1,0 +1,21 @@
+# Date : 1/11/2024
+ENV=cloud
+
+# Blobs
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=scc70056;AccountKey=kgk69wBGUOhxvafNpqniO6eaON4nT07gSlH798giINNxBaDWhDqpuAHUjrSM8AyvhumH7xZxCK8Q+ASt19dFHg==;EndpointSuffix=core.windows.net
+CONTAINER_NAME=tukano
+STORAGE_ACCOUNT=scc70056
+
+# Cache
+REDIS_HOST=tukano-70056.redis.cache.windows.net
+REDIS_PASSWORD=FOGAAXVgtJaYiXLlFbyJmeo7bLefTZvXkAzCaEbfETw=
+
+# Cosmos NOSQL
+COSMOSDB_NOSQL_URL=https://scc70056.documents.azure.com/
+COSMOSDB_NOSQL_KEY=fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==
+COSMOSDB_NOSQL_NAME=scc70056
+SHORTS_DB_COLLECTION = shorts
+LIKES_DB_COLLECTION = likes
+FOLLOWERS_DB_COLLECTION = followers
+
+# Cosmos SQL

@@ -1,5 +1,6 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
+<!--	Victor connections data  -->
 	<session-factory>
 		<!-- JDBC Database connection settings for Azure Cosmos DB for PostgreSQL -->
 		<property name="connection.driver_class">org.postgresql.Driver</property>

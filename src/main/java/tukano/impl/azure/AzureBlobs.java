@@ -52,6 +52,10 @@ public class AzureBlobs implements Blobs {
         return instance;
     }
 
+    public String getBaseURI() {
+        return baseURI;
+    }
+
     @Override
     public Result<Void> upload(String blobId, byte[] bytes, String token) {
         Log.info(() -> format("upload : blobId = %s, sha256 = %s, token = %s\n", blobId, Hex.of(Hash.sha256(bytes)),

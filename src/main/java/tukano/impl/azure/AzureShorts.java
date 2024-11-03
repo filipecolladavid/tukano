@@ -27,6 +27,8 @@ import com.azure.cosmos.models.CosmosItemRequestOptions;
 import com.azure.cosmos.models.CosmosItemResponse;
 import com.azure.cosmos.models.CosmosQueryRequestOptions;
 import com.azure.cosmos.models.PartitionKey;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -71,11 +73,13 @@ public class AzureShorts implements Shorts {
     private static final int SHORT_CACHE_EXPIRATION_IN_SECONDS = 3600;
     private static final int FEED_CACHE_EXPIRATION_IN_SECONDS = 60;
     private static final int SOCIAL_CACHE_EXPIRATION_IN_SECONDS = 300;
+    private final String containerName;
+    private final String storageAccount;
+    private final String baseURI;
 
     synchronized public static Shorts getInstance() {
         if (instance == null)
             instance = new AzureShorts();
-
         return instance;
     }
 
@@ -97,6 +101,11 @@ public class AzureShorts implements Shorts {
         AzureShorts.likesDB = db.getContainer(LIKES_DB_COLLECTION);
         AzureShorts.followersDB = db.getContainer(FOLLOWERS_DB_COLLECTION);
 
+        // For creating the right BlobURL
+        this.containerName = System.getProperty("CONTAINER_NAME");
+        this.storageAccount = System.getProperty("STORAGE_ACCOUNT");
+        this.baseURI = String.format("https://%s.blob.core.windows.net/%s/", storageAccount, containerName);
+
         this.cache = AzureCache.getInstance();
         this.gson = new Gson();
     }
@@ -108,7 +117,8 @@ public class AzureShorts implements Shorts {
         return errorOrResult(okUser(userId, password), user -> {
             try {
                 var shortId = format("%s+%s", userId, UUID.randomUUID());
-                var blobUrl = format("%s/%s/%s", TukanoRestServer.serverURI, Blobs.NAME, shortId);
+
+                var blobUrl = format("%s/%s/%s", baseURI, Blobs.NAME, shortId);
                 var shrt = new Short(shortId, userId, blobUrl);
 
                 CosmosItemResponse<Short> response = shortsDB.createItem(shrt);

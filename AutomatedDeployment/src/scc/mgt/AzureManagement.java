@@ -55,6 +55,7 @@ public class AzureManagement {
 	
 	static final String AZURE_COSMOSDB_NAME = "cosmos" + MY_ID;	// Cosmos DB account name
 	static final String AZURE_COSMOSDB_DATABASE = "cosmosdb" + MY_ID;	// Cosmos DB database name
+	static final String[] AZURE_COSMOSDB_COLLECTIONS = {"shorts", "followers", "likes"};
 	static final String[] BLOB_CONTAINERS = { "shorts" };	// TODO: Containers to add to the blob storage
 
 	static final Region[] REGIONS = new Region[] { Region.EUROPE_NORTH}; // Define the regions to deploy resources here
@@ -157,7 +158,12 @@ public class AzureManagement {
 		}
 
 		synchronized (AzureManagement.class) {
-			Files.write(Paths.get(propFilename), ("BlobStoreConnection=" + key + "\n").getBytes(),
+			Files.write(Paths.get(propFilename), ("# BLOBS"+"\n").getBytes(), StandardOpenOption.APPEND);
+			Files.write(Paths.get(propFilename), ("BLOB_STORE_CONNECTION=" + key + "\n").getBytes(),
+					StandardOpenOption.APPEND);
+			Files.write(Paths.get(propFilename), ("STORAGE_ACCOUNT="+account.name()+"\n").getBytes(),
+					StandardOpenOption.APPEND);
+			Files.write(Paths.get(propFilename), ("CONTAINER_NAME="+BLOB_CONTAINERS[0]+"\n").getBytes(),
 					StandardOpenOption.APPEND);
 		}
 		StringBuffer cmd = new StringBuffer();
@@ -215,13 +221,20 @@ public class AzureManagement {
 			String settingsFilename, String appName, String functionName, String rgName, String databaseName,
 			CosmosDBAccount account) throws IOException {
 		synchronized (AzureManagement.class) {
+			Files.write(Paths.get(propFilename), ("# COSMOSDB"+"\n").getBytes(), StandardOpenOption.APPEND);
 			Files.write(Paths.get(propFilename),
-					("COSMOSDB_KEY=" + account.listKeys().primaryMasterKey() + "\n").getBytes(),
+					("COSMOSDB_NOSQL_KEY=" + account.listKeys().primaryMasterKey() + "\n").getBytes(),
 					StandardOpenOption.APPEND);
-			Files.write(Paths.get(propFilename), ("COSMOSDB_URL=" + account.documentEndpoint() + "\n").getBytes(),
+			Files.write(Paths.get(propFilename), ("COSMOSDB_NOSQL_URL=" + account.documentEndpoint() + "\n").getBytes(),
 					StandardOpenOption.APPEND);
-			Files.write(Paths.get(propFilename), ("COSMOSDB_DATABASE=" + databaseName + "\n").getBytes(),
+			Files.write(Paths.get(propFilename), ("COSMOSDB_NOSQL_NAME=" + databaseName + "\n").getBytes(),
 					StandardOpenOption.APPEND);
+			for (String collection : AZURE_COSMOSDB_COLLECTIONS) {
+				Files.write(Paths.get(propFilename),
+						(collection.toUpperCase() +"_DB_COLLECTION="+ collection+"\n").getBytes(),
+						StandardOpenOption.APPEND);
+			}
+
 		}
 		synchronized (props) {
 			props.put("COSMOSDB_KEY", account.listKeys().primaryMasterKey());
@@ -334,9 +347,10 @@ public class AzureManagement {
 			throws IOException {
 		RedisAccessKeys redisAccessKey = cache.regenerateKey(RedisKeyType.PRIMARY);
 		synchronized (AzureManagement.class) {
-			Files.write(Paths.get(propFilename), ("REDIS_KEY=" + redisAccessKey.primaryKey() + "\n").getBytes(),
+			Files.write(Paths.get(propFilename), ("# REDIS"+"\n").getBytes(), StandardOpenOption.APPEND);
+			Files.write(Paths.get(propFilename), ("REDIS_PASSWORD=" + redisAccessKey.primaryKey() + "\n").getBytes(),
 					StandardOpenOption.APPEND);
-			Files.write(Paths.get(propFilename), ("REDIS_URL=" + cache.hostname() + "\n").getBytes(),
+			Files.write(Paths.get(propFilename), ("REDIS_HOST=" + cache.hostname() + "\n").getBytes(),
 					StandardOpenOption.APPEND);
 		}
 		synchronized (props) {
@@ -482,8 +496,13 @@ public class AzureManagement {
 							CosmosClient cosmosClient = getCosmosClient(accountCosmosDB);
 							createCosmosDatabase(cosmosClient, AZURE_COSMOSDB_DATABASE);
 
-							//TODO: create the collections you have in your application
+							//TODO: create the collections you have in your application - mannually
+							//TODO - check hibernate stuff
 							createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "users", "/id", null);
+							//Other collections
+							createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "shorts", "/id", null);
+							createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "followers", "/id", null);
+							createCosmosCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "likes", "/id", null);
 
 							System.err.println("Azure Cosmos DB resources created with success");
 

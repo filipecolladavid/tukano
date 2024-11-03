@@ -1,5 +1,12 @@
-# Date : 11/3/24, 12:52 PM
-BlobStoreConnection=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=rTQfBg9c3hY/Tp6o3yDfJERqc04PiPOK7blTq7ot1uvjW180aHCVv3zq1CCBTSiOgPfLWkFoAcSy+AStp1lXCw==;EndpointSuffix=core.windows.net
-COSMOSDB_KEY=07vj2Ec1l16AsgonX1l0BVajRVB2g8FuMQ4F7OocU5b7Bi2iCHlQIGy3QsRqN9k133t74M47bDpDACDbcBasgg==
-COSMOSDB_URL=https://cosmos70666.documents.azure.com:443/
-COSMOSDB_DATABASE=cosmosdb70666
+# Date : 11/3/24, 2:24 PM
+# BLOBS
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=T20aBqbgTkEuQZ4zJCVsZo3JGTlLTaosXiBUsT4CNWPCX0RM8ct8TEM/OXFQg+5LUFxxRYqCVOqj+AStdp3rRA==;EndpointSuffix=core.windows.net
+STORAGE_ACCOUNT=sto70666northeurope
+CONTAINER_NAME=[Ljava.lang.String;@27176c2a
+# COSMOSDB
+COSMOSDB_NOSQL_KEY=gjcFwERNNqRBhebdZIeviirUP8qrTUuh4tdwgh29sKq41c0cUEGxy9ts8HTz3Zn6ubENTOOgpJaFACDbCyIVPQ==
+COSMOSDB_NOSQL_URL=https://cosmos70666.documents.azure.com:443/
+COSMOSDB_NOSQL_NAME=cosmosdb70666
+SHORTS_DB_COLLECTION=shorts
+FOLLOWERS_DB_COLLECTION=followers
+LIKES_DB_COLLECTION=likes

@@ -23,7 +23,7 @@ scenarios:
           beforeRequest: "uploadRandomizedUser"
           afterResponse: "processRegisterReply"
       - get:
-          url: "/users/{{ userId }}"
+          url: "/users/{{ lastRegisteredUserId }}"
           qs:
             pwd: "{{ pwd }}"
       - post:

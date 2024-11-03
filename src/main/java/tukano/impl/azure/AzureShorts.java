@@ -27,8 +27,6 @@ import com.azure.cosmos.models.CosmosItemRequestOptions;
 import com.azure.cosmos.models.CosmosItemResponse;
 import com.azure.cosmos.models.CosmosQueryRequestOptions;
 import com.azure.cosmos.models.PartitionKey;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,7 +39,6 @@ import tukano.api.User;
 import tukano.impl.Token;
 import tukano.impl.data.Following;
 import tukano.impl.data.Likes;
-import tukano.impl.rest.TukanoRestServer;
 
 public class AzureShorts implements Shorts {
     private static Shorts instance;
@@ -425,7 +422,7 @@ public class AzureShorts implements Shorts {
     }
 
     protected Result<User> okUser(String userId, String pwd) {
-        if(System.getProperty("USER_DB_TYPE").equals("NOSQL")) {
+        if (System.getProperty("USER_DB_TYPE").equals("NOSQL")) {
             return AzureUsersWithNoSQL.getInstance().getUser(userId, pwd);
         }
         return AzureUsersWithSQL.getInstance().getUser(userId, pwd);

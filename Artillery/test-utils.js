@@ -1,4 +1,5 @@
 "use strict";
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
 	uploadRandomizedUser,
@@ -25,13 +26,9 @@ global.myProcessEndpoint = function (str, method) {
 	return method + ":" + str;
 };
 
-function randomUsername(char_limit) {
-	const letters = "abcdefghijklmnopqrstuvwxyz";
-	let username = "";
-	let num_chars = Math.floor(Math.random() * char_limit);
-	for (let i = 0; i < num_chars; i++) {
-		username += letters[Math.floor(Math.random() * letters.length)];
-	}
+function randomUsername() {
+	const username = `user-${uuidv4()}`;
+	console.log("Random username:", username);
 	return username;
 }
 
@@ -56,7 +53,7 @@ function processRegisterReply(requestParams, response, context, ee, next) {
 }
 
 function uploadRandomizedUser(requestParams, context, ee, next) {
-	let username = randomUsername(10);
+	let username = randomUsername();
 	let pword = randomPassword(15);
 	let email = username + "@campus.fct.unl.pt";
 

@@ -3,7 +3,6 @@ package tukano.impl.azure;
 import static java.lang.String.format;
 import static tukano.api.Result.ErrorCode.*;
 import static tukano.api.Result.error;
-import static tukano.api.Result.errorOrResult;
 import static tukano.api.Result.ok;
 
 import java.util.List;
@@ -93,10 +92,6 @@ public class AzureUsersWithSQL implements Users {
             return error(BAD_REQUEST);
 
         try {
-            // List<User> listUsers = DB.sql("select * from users where users.userid = '" +
-            // userId + "' LIMIT 1",
-            // User.class);
-            //
             List<User> listUsers = DB.sql("select * from users where users.\"userId\" = '" + userId + "' LIMIT 1",
                     User.class);
             if (listUsers.isEmpty())

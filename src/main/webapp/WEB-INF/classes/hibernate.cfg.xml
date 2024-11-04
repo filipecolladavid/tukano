@@ -1,29 +1,28 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<!-- JDBC Database connection settings for Azure Cosmos DB for PostgreSQL -->
-		<property name="connection.driver_class">org.postgresql.Driver</property>
-		<property name="connection.url">jdbc:postgresql://c-scc70056.beiimhk57de6vn.postgres.cosmos.azure.com:5432/tukano?sslmode=require</property>
-		<property name="connection.username">citus</property>
-		<property name="connection.password">s3cret123!</property>
+    <session-factory>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://c-scc70056.d5gf65s7oj4qyb.postgres.cosmos.azure.com:5432/tukano?sslmode=require</property>
+        <property name="connection.username">citus</property>
+        <property name="connection.password">s3cret123!</property>
 
-		<!-- PostgreSQL settings -->
-		<property name="hibernate.globally_quoted_identifiers">true</property>
+        <property name="hibernate.connection.pool_size">10</property>
+        
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">10</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        
+        <property name="hibernate.globally_quoted_identifiers">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.connection.autocommit">false</property>
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
 
-		<property name="hibernate.connection.pool_size">10</property>
-		<property name="hibernate.current_session_context_class">managed</property>
-		<property name="hibernate.connection.autocommit">false</property>
-
-		<!-- SQL debugging -->
-		<property name="show_sql">true</property>
-
-		<!-- Drop and recreate the database schema on startup -->
-		<property name="hbm2ddl.auto">update</property>
-
-		<!-- Entity mappings -->
-		<mapping class="tukano.api.User" />
-		<mapping class="tukano.api.Short" />
-		<mapping class="tukano.impl.data.Following" />
-		<mapping class="tukano.impl.data.Likes" />
-	</session-factory>
+        <mapping class="tukano.api.User" />
+        <mapping class="tukano.api.Short" />
+        <mapping class="tukano.impl.data.Following" />
+        <mapping class="tukano.impl.data.Likes" />
+    </session-factory>
 </hibernate-configuration>

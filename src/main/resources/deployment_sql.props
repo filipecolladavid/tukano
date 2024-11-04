@@ -1,5 +1,6 @@
 # Date : 1/11/2024
-ENV=cloud
+# ENV=cloud
+ENV=local
 USER_DB_TYPE=SQL
 
 # Blobs

@@ -27,7 +27,7 @@ scenarios:
           qs:
             pwd: "{{ pwd }}"
       - post:
-          url: "/shorts/{{ userId }}"
+          url: "/shorts/{{ lastRegisteredUserId }}"
           headers:
             Content-Type: application/json
             Accept: application/json

@@ -1,6 +1,7 @@
 # Date : 1/11/2024
-ENV=cloud
-USER_DB_TYPE=NOSQL
+# ENV=cloud
+ENV=local
+USER_DB_TYPE=SQL
 
 # Blobs
 BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=scc70056;AccountKey=kgk69wBGUOhxvafNpqniO6eaON4nT07gSlH798giINNxBaDWhDqpuAHUjrSM8AyvhumH7xZxCK8Q+ASt19dFHg==;EndpointSuffix=core.windows.net

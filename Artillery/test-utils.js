@@ -28,7 +28,6 @@ global.myProcessEndpoint = function (str, method) {
 
 function randomUsername() {
 	const username = `user-${uuidv4()}`;
-	console.log("Random username:", username);
 	return username;
 }
 

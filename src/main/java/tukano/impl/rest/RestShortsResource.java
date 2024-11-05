@@ -1,16 +1,21 @@
 package tukano.impl.rest;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import jakarta.inject.Singleton;
 import tukano.api.Short;
 import tukano.api.Shorts;
 import tukano.api.rest.RestShorts;
 import tukano.impl.JavaShorts;
+import tukano.impl.azure.AzureCache;
 import tukano.impl.azure.AzureShorts;
+
+import static java.lang.String.format;
 
 @Singleton
 public class RestShortsResource extends RestResource implements RestShorts {
+	private static Logger Log = Logger.getLogger(RestShortsResource.class.getName());
 
 	static final Shorts impl = AzureShorts.getInstance();
 		
@@ -35,6 +40,7 @@ public class RestShortsResource extends RestResource implements RestShorts {
 
 	@Override
 	public void follow(String userId1, String userId2, boolean isFollowing, String password) {
+		Log.info(() -> format("follow : userId1 = %s, userId2 = %s, isFollowing = %s, pwd = %s\n", userId1, userId2, isFollowing, password));
 		super.resultOrThrow( impl.follow(userId1, userId2, isFollowing, password));
 	}
 

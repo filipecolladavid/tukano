@@ -147,8 +147,8 @@ public class AzureUsersWithNoSQL implements Users {
                 validatedUserOrError(this.getUser(userId, pwd), pwd),
                 user -> {
                     User userUpdated = user.updateFrom(other);
-                    usersDB.replaceItem(userUpdated, userUpdated.getId(), new PartitionKey(userId),
-                            new CosmosItemRequestOptions());
+                    Log.info(() -> format("userUpdate.getID() = %s", userUpdated.getId()));
+                    usersDB.replaceItem(userUpdated, userUpdated.getId(), new PartitionKey(userUpdated.getId()), new CosmosItemRequestOptions());
                     if (useCache) {
                         setUserCache(userUpdated);
                         deleteSearchCache("");
@@ -166,10 +166,13 @@ public class AzureUsersWithNoSQL implements Users {
                 deleteUserCache(user);
                 deleteSearchCache("");
             }
+            Log.info(() -> "Deleting all shorts");
             AzureShorts.getInstance().deleteAllShorts(userId, pwd, Token.get(userId));
+            Log.info(() -> "Deleting all blobs");
             AzureBlobs.getInstance().deleteAllBlobs(userId, Token.get(userId));
-            usersDB.deleteItem(user.getId(), new PartitionKey(userId), new CosmosItemRequestOptions());
-            return ok();
+            Log.info(() -> "Deleting user");
+            usersDB.deleteItem(user.getId(), new PartitionKey(user.getId()), new CosmosItemRequestOptions());
+            return ok(user);
         });
     }
 

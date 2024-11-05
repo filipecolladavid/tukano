@@ -18,6 +18,14 @@ public class Test {
         System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s");
     }
 
+    public static void printBanner(String message) {
+        String borderLine = "-".repeat(91);
+
+        System.out.println("\n" + borderLine);
+        System.out.printf("%-45s %s %-45s%n", "", message, "");
+        System.out.println(borderLine + "\n");
+    }
+
     public static void main(String[] args) throws Exception {
         TukanoRestServer server = new TukanoRestServer();
         Thread.sleep(1000);
@@ -32,22 +40,26 @@ public class Test {
         var blobs = new RestBlobsClient(serverURI);
         var users = new RestUsersClient(serverURI);
         var shorts = new RestShortsClient(serverURI);
-
+        printBanner("CREATING USERS");
         show(users.createUser(new User("wales", "12345", "jimmy@wikipedia.pt", "Jimmy Wales")));
-
         show(users.createUser(new User("liskov", "54321", "liskov@mit.edu", "Barbara Liskov")));
-        show(users.updateUser("wales", "12345", new User("wales", "12345",
-                "jimmy@wikipedia.com", "")));
+
+        printBanner("UPDATE USERS");
+        show(users.updateUser("wales", "12345", new User("wales", "12345", "jimmy@wikipedia.com", "")));
+
+        printBanner("SEARCH USERS");
         show(users.searchUsers(""));
 
         Result<tukano.api.Short> s1, s2;
 
+        printBanner("CREATE SHORTS");
         show(s2 = shorts.createShort("liskov", "54321"));
         show(s1 = shorts.createShort("wales", "12345"));
         show(shorts.createShort("wales", "12345"));
         show(shorts.createShort("wales", "12345"));
         show(shorts.createShort("wales", "12345"));
 
+        printBanner("CREATE BLOBS");
         var blobUrl = URI.create(s2.value().getBlobUrl());
         System.out.println("------->" + blobUrl);
 
@@ -60,21 +72,29 @@ public class Test {
 
         var s2id = s2.value().getShortId();
 
+
+        printBanner("FOLLOW");
         show(shorts.follow("liskov", "wales", true, "54321"));
         show(shorts.followers("wales", "12345"));
 
+        printBanner("LIKES");
         show(shorts.like(s2id, "liskov", true, "54321"));
         show(shorts.like(s2id, "liskov", true, "54321"));
         show(shorts.likes(s2id, "54321"));
-        show(shorts.getFeed("liskov", "12345"));
-        show(shorts.getShort(s2id));
 
+        printBanner("GET FEED");
+        show(shorts.getFeed("liskov", "12345"));
+
+        printBanner("GET SHORT(s)");
+        show(shorts.getShort(s2id));;
         show(shorts.getShorts("wales"));
 
+
+        printBanner("GET FOLLOWERS");
         show(shorts.followers("wales", "12345"));
-
+        printBanner("GET FEED");
         show(shorts.getFeed("liskov", "12345"));
-
+        printBanner("GET SHORT");
         show(shorts.getShort(s2id));
         //
         //
@@ -85,8 +105,9 @@ public class Test {
         //
         // });
 
-        show(users.deleteUser("wales", "12345"));
-        show(users.deleteUser("liskov", "54321"));
+        printBanner("DELETE USERS");
+//        show(users.deleteUser("wales", "12345"));
+//        show(users.deleteUser("liskov", "54321"));
 
         System.exit(0);
     }

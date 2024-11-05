@@ -107,11 +107,13 @@ public class User {
 	}
 
 	public User updateFrom(User other) {
+		System.out.println(other);
 		var updatedUser = new User(userId,
 				other.pwd != null ? other.pwd : pwd,
 				other.email != null ? other.email : email,
 				other.displayName != null ? other.displayName : displayName);
 		updatedUser.setId(id);
+		System.out.println("UPDATED USER"+updatedUser);
 		return updatedUser;
 	}
 }

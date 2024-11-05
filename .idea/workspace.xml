@@ -6,17 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/src/scc/mgt/AzureManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/src/scc/mgt/AzureManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureShorts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureShorts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/CountingViews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/CountingViews.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestShortsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestShortsResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/deployment.props" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/deployment.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/test/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/test/Test.java" afterDir="false" />
     </list>

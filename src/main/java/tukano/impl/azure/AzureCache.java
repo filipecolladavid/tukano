@@ -35,6 +35,12 @@ public class AzureCache {
                 RedisSSL);
     }
 
+    /**
+     * Stores a (key,value) into the cache.
+     *
+     * @param key to use to store the value
+     * @param value to be stored
+     */
     public void set(String key, String value) {
         Log.info(() -> format("cache set: key = %s, value = %s\n", key, value));
         try (var jedis = jedisPoolInstance.getResource()) {
@@ -42,6 +48,13 @@ public class AzureCache {
         }
     }
 
+    /**
+     * Stores a (key, value) into the cache, with an expiry associated
+     *
+     * @param key to use to store the value
+     * @param value to be stored
+     * @param expiry associated with this entry
+     */
     public void setWithExpiry(String key, String value, int expiry) {
         Log.info(() -> format("cache set: key = %s, value = %s, expiry = %d\n", key, value, expiry));
         try (var jedis = jedisPoolInstance.getResource()) {
@@ -49,6 +62,12 @@ public class AzureCache {
         }
     }
 
+    /**
+     * Gets a (key,value) from the cache
+     *
+     * @param key of the value to be fetched
+     * @return the value associated with they key; null if doesn't exist
+     */
     public String get(String key) {
         Log.info(() -> format("cache get: key = %s\n", key));
         try (var jedis = jedisPoolInstance.getResource()) {
@@ -59,6 +78,11 @@ public class AzureCache {
         }
     }
 
+    /**
+     * Deletes the key value, given a key
+     *
+     * @param key to be deleted
+     */
     public void delete(String key) {
         try (var jedis = jedisPoolInstance.getResource()) {
             jedis.del(key);

@@ -1,6 +1,6 @@
 # Usage
 1. Change TODO values for your own<br>
-2. Compile the project
+2. Compile the project<br>
 ```bash
 mvn clean compile assembly:single
 ```

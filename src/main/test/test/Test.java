@@ -24,6 +24,7 @@ public class Test {
 
         var serverURILocal = String.format("http://localhost:%s/tukano/rest", TukanoRestServer.PORT);
 
+        //TODO - change to your own url
         var serverURIAzure = "https://tukano-70056-70666-2.azurewebsites.net/rest";
         var serverURI = System.getProperty("ENV").equals("local") ? serverURILocal : serverURIAzure;
         System.out.println(serverURI);
@@ -35,8 +36,6 @@ public class Test {
         show(users.createUser(new User("wales", "12345", "jimmy@wikipedia.pt", "Jimmy Wales")));
 
         show(users.createUser(new User("liskov", "54321", "liskov@mit.edu", "Barbara Liskov")));
-
-        // TODO FIX
         show(users.updateUser("wales", "12345", new User("wales", "12345",
                 "jimmy@wikipedia.com", "")));
         show(users.searchUsers(""));

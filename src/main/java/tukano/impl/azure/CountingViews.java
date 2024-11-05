@@ -1,5 +1,6 @@
 package tukano.impl.azure;
 
+import com.azure.cosmos.models.CosmosItemResponse;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.*;
 
@@ -22,21 +23,14 @@ public class CountingViews {
             final ExecutionContext context) {
 
         context.getLogger().info("Processing view count for short: " + shortId);
-        return new HttpResponseMessage() {
-            @Override
-            public HttpStatusType getStatus() {
-                return null;
-            }
 
-            @Override
-            public String getHeader(String key) {
-                return "";
-            }
-
-            @Override
-            public Object getBody() {
-                return null;
-            }
-        };
+        if (shortId == null || shortId.isEmpty()) {
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+                    .body("Invalid shortId")
+                    .build();
+        }
+        return request.createResponseBuilder(HttpStatus.OK)
+                .body("View count incremented successfully.")
+                .build();
     }
 }

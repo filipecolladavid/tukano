@@ -1,4 +1,3 @@
-
 package tukano.impl.azure;
 
 import static java.lang.String.format;
@@ -73,10 +72,10 @@ public class AzureShorts implements Shorts {
     private final String containerName;
     private final String storageAccount;
     private final String baseURI;
+    private boolean useCache;
 
     synchronized public static Shorts getInstance() {
-        if (instance == null)
-            instance = new AzureShorts();
+        if (instance == null) instance = new AzureShorts();
         return instance;
     }
 
@@ -89,8 +88,10 @@ public class AzureShorts implements Shorts {
         AzureShorts.LIKES_DB_COLLECTION = System.getProperty("LIKES_DB_COLLECTION");
         AzureShorts.FOLLOWERS_DB_COLLECTION = System.getProperty("FOLLOWERS_DB_COLLECTION");
 
-        AzureShorts.cosmosClient = new CosmosClientBuilder().endpoint(endpoint).key(DB_KEY).gatewayMode()
-                .consistencyLevel(ConsistencyLevel.SESSION).connectionSharingAcrossClientsEnabled(true)
+        AzureShorts.cosmosClient = new CosmosClientBuilder()
+                .endpoint(endpoint).key(DB_KEY).gatewayMode()
+                .consistencyLevel(ConsistencyLevel.SESSION)
+                .connectionSharingAcrossClientsEnabled(true)
                 .contentResponseOnWriteEnabled(true).buildClient();
 
         AzureShorts.db = AzureShorts.cosmosClient.getDatabase(DB_NAME);
@@ -104,6 +105,7 @@ public class AzureShorts implements Shorts {
         this.baseURI = String.format("https://%s.blob.core.windows.net/%s", storageAccount, containerName);
 
         this.cache = AzureCache.getInstance();
+        this.useCache = Boolean.parseBoolean(System.getProperty("CACHE"));
         this.gson = new Gson();
     }
 
@@ -113,26 +115,24 @@ public class AzureShorts implements Shorts {
 
         return errorOrResult(okUser(userId, password), user -> {
             try {
-                var shortId = format("%s+%s", userId, UUID.randomUUID());
-
-                var blobUrl = format("%s/%s/%s", baseURI, Blobs.NAME, shortId);
-                var shrt = new Short(shortId, userId, blobUrl);
+                String shortId = format("%s+%s", userId, UUID.randomUUID());
+                String blobUrl = format("%s/%s/%s", baseURI, Blobs.NAME, shortId);
+                Short shrt = new Short(shortId, userId, blobUrl);
 
                 CosmosItemResponse<Short> response = shortsDB.createItem(shrt);
                 if (response.getStatusCode() < 300) {
-                    setShortCache(shrt);
-                    cache.delete(getUserShortsCacheKey(userId));
-
+                    if (useCache) {
+                        setShortCache(shrt);
+                        cache.delete(getUserShortsCacheKey(userId));
+                    }
                     Result<List<String>> followersResult = followers(userId, password);
                     if (followersResult.isOK()) {
                         invalidateFollowersFeedCache(followersResult.value());
                     }
-
                     return ok(response.getItem().copyWithLikes_And_Token(0));
                 } else {
                     return error(BAD_REQUEST);
                 }
-
             } catch (Exception e) {
                 return error(BAD_REQUEST);
             }
@@ -142,16 +142,15 @@ public class AzureShorts implements Shorts {
     @Override
     public Result<Short> getShort(String shortId) {
         Log.info(() -> format("getShort : shortId = %s\n", shortId));
-
-        if (shortId == null)
-            return error(BAD_REQUEST);
+        if (shortId == null) return error(BAD_REQUEST);
 
         try {
-
-            String cachedShort = cache.get(getShortCacheKey(shortId));
-            if (cachedShort != null) {
-                Log.info(() -> format("short cache hit: shortId = %s\n", shortId));
-                return ok(gson.fromJson(cachedShort, Short.class));
+            if (useCache) {
+                String cachedShort = cache.get(getShortCacheKey(shortId));
+                if (cachedShort != null) {
+                    Log.info(() -> format("short cache hit: shortId = %s\n", shortId));
+                    return ok(gson.fromJson(cachedShort, Short.class));
+                }
             }
 
             CosmosItemResponse<Short> readItem = shortsDB.readItem(shortId, new PartitionKey(shortId), Short.class);
@@ -160,16 +159,16 @@ public class AzureShorts implements Shorts {
             if (currentShort == null) {
                 CosmosQueryRequestOptions options = new CosmosQueryRequestOptions();
                 options.setConsistencyLevel(ConsistencyLevel.STRONG);
-                var query = format("SELECT * FROM Short s WHERE s.shortId = '%s'", shortId);
-                currentShort = shortsDB.queryItems(query, options, Short.class)
-                        .stream().findFirst().orElse(null);
+                String query = format("SELECT * FROM Short s WHERE s.shortId = '%s'", shortId);
+                currentShort = shortsDB.queryItems(query, options, Short.class).stream().findFirst().orElse(null);
             }
             if (currentShort == null) {
                 Log.warning(() -> format("Short not found: %s\n", shortId));
                 return error(NOT_FOUND);
             }
-
-            setShortCache(currentShort);
+            if (useCache) {
+                setShortCache(currentShort);
+            }
             return ok(currentShort);
 
         } catch (Exception e) {
@@ -178,6 +177,9 @@ public class AzureShorts implements Shorts {
         }
     }
 
+    /**
+     * TODO - only deleting from cache ?
+     */
     @Override
     public Result<Void> deleteShort(String shortId, String password) {
         Log.info(() -> format("deleteShort : shortId = %s, pwd = %s\n", shortId, password));
@@ -191,28 +193,26 @@ public class AzureShorts implements Shorts {
     @Override
     public Result<List<String>> getShorts(String userId) {
         Log.info(() -> format("getShorts : userId = %s\n", userId));
-        if (userId == null)
-            return error(BAD_REQUEST);
+        if (userId == null) return error(BAD_REQUEST);
 
         try {
-
-            String cachedShorts = cache.get(getUserShortsCacheKey(userId));
-
-            if (cachedShorts != null) {
-                Log.info(() -> format("shorts cache hit: userId = %s\n", userId));
-                Type listType = new TypeToken<List<String>>() {
-                }.getType();
-
-                return ok(gson.fromJson(cachedShorts, listType));
+            if (useCache) {
+                String cachedShorts = cache.get(getUserShortsCacheKey(userId));
+                if (cachedShorts != null) {
+                    Log.info(() -> format("shorts cache hit: userId = %s\n", userId));
+                    Type listType = new TypeToken<List<String>>() {
+                    }.getType();
+                    return ok(gson.fromJson(cachedShorts, listType));
+                }
             }
 
-            var query = format("SELECT s.shortId FROM Short s WHERE s.ownerId = '%s'", userId);
+            String query = format("SELECT s.shortId FROM Short s WHERE s.ownerId = '%s'", userId);
             CosmosQueryRequestOptions options = new CosmosQueryRequestOptions();
+            List<String> shortsID = shortsDB.queryItems(query, options, Short.class)
+                    .stream().map(Short::getShortId)
+                    .collect(Collectors.toList());
 
-            List<String> shortsID = shortsDB.queryItems(query, options,
-                    Short.class).stream().map(key -> key.getShortId()).collect(Collectors.toList());
-
-            setListCache(getUserShortsCacheKey(userId), shortsID, SOCIAL_CACHE_EXPIRATION_IN_SECONDS);
+            if (useCache) setListCache(getUserShortsCacheKey(userId), shortsID, SOCIAL_CACHE_EXPIRATION_IN_SECONDS);
             return ok(shortsID);
 
         } catch (Exception e) {
@@ -222,11 +222,10 @@ public class AzureShorts implements Shorts {
 
     @Override
     public Result<Void> follow(String userId1, String userId2, boolean isFollowing, String password) {
-        Log.info(() -> format("follow : userId1 = %s, userId2 = %s, isFollowing = %s, pwd = %s\n", userId1, userId2,
-                isFollowing, password));
+        Log.info(() -> format("follow : userId1 = %s, userId2 = %s, isFollowing = %s, pwd = %s\n", userId1, userId2, isFollowing, password));
 
         return errorOrResult(okUser(userId1, password), user -> {
-            var f = new Following(userId1, userId2);
+            Following f = new Following(userId1, userId2);
             if (isFollowing) {
                 followersDB.createItem(f);
             } else {
@@ -234,10 +233,11 @@ public class AzureShorts implements Shorts {
                 followersDB.deleteItem(f.getId(), partitionKey, new CosmosItemRequestOptions());
             }
 
-            cache.delete(getFollowersCacheKey(userId1));
-            cache.delete(getFollowersCacheKey(userId2));
-            cache.delete(getFeedCacheKey(userId1));
-
+            if (useCache) {
+                cache.delete(getFollowersCacheKey(userId1));
+                cache.delete(getFollowersCacheKey(userId2));
+                cache.delete(getFeedCacheKey(userId1));
+            }
             return ok();
         });
     }
@@ -246,32 +246,30 @@ public class AzureShorts implements Shorts {
     public Result<List<String>> followers(String userId, String password) {
         Log.info(() -> format("followers : userId = %s, pwd = %s\n", userId, password));
 
-        var query = format("SELECT f.follower FROM Followers f WHERE f.followee = '%s'", userId);
-
-        String cachedFollowers = cache.get(getFollowersCacheKey(userId));
-        if (cachedFollowers != null) {
-            Log.info(() -> format("followers cache hit: userId = %s\n", userId));
-            return ok(gson.fromJson(cachedFollowers, new TypeToken<List<String>>() {
-            }.getType()));
+        String query = format("SELECT f.follower FROM Followers f WHERE f.followee = '%s'", userId);
+        if (useCache) {
+            String cachedFollowers = cache.get(getFollowersCacheKey(userId));
+            if (cachedFollowers != null) {
+                Log.info(() -> format("followers cache hit: userId = %s\n", userId));
+                return ok(gson.fromJson(cachedFollowers, new TypeToken<List<String>>() {
+                }.getType()));
+            }
         }
 
         return errorOrResult(okUser(userId, password), user -> {
-            List<String> followers = followersDB.queryItems(query, new CosmosQueryRequestOptions(),
-                    Following.class).stream().map(key -> key.getFollower()).collect(Collectors.toList());
-
-            setListCache(getFollowersCacheKey(userId), followers, SOCIAL_CACHE_EXPIRATION_IN_SECONDS);
-
+            List<String> followers = followersDB.queryItems(query, new CosmosQueryRequestOptions(), Following.class)
+                    .stream().map(Following::getFollower).collect(Collectors.toList());
+            if (useCache) setListCache(getFollowersCacheKey(userId), followers, SOCIAL_CACHE_EXPIRATION_IN_SECONDS);
             return ok(followers);
         });
     }
 
     @Override
     public Result<Void> like(String shortId, String userId, boolean isLiked, String password) {
-        Log.info(() -> format("like : shortId = %s, userId = %s, isLiked = %s, pwd = %s\n", shortId, userId, isLiked,
-                password));
+        Log.info(() -> format("like : shortId = %s, userId = %s, isLiked = %s, pwd = %s\n", shortId, userId, isLiked, password));
 
         return errorOrResult(getShort(shortId), shrt -> {
-            var l = new Likes(userId, shortId, shrt.getOwnerId());
+            Likes l = new Likes(userId, shortId, shrt.getOwnerId());
             if (isLiked) {
                 likesDB.createItem(l);
             } else {
@@ -279,7 +277,7 @@ public class AzureShorts implements Shorts {
                 likesDB.deleteItem(l.getId(), partitionKey, new CosmosItemRequestOptions());
             }
 
-            cache.delete(getLikesCacheKey(shortId));
+            if (useCache) cache.delete(getLikesCacheKey(shortId));
             return ok();
         });
     }
@@ -288,24 +286,25 @@ public class AzureShorts implements Shorts {
     public Result<List<String>> likes(String shortId, String password) {
         Log.info(() -> format("likes : shortId = %s, pwd = %s\n", shortId, password));
 
-        String cachedLikes = cache.get(getLikesCacheKey(shortId));
-        if (cachedLikes != null) {
-            Log.info(() -> format("likes cache hit: shortId = %s\n", shortId));
-            return ok(gson.fromJson(cachedLikes, new TypeToken<List<String>>() {
-            }.getType()));
+        if (useCache) {
+            String cachedLikes = cache.get(getLikesCacheKey(shortId));
+            if (cachedLikes != null) {
+                Log.info(() -> format("likes cache hit: shortId = %s\n", shortId));
+                return ok(gson.fromJson(cachedLikes, new TypeToken<List<String>>() {
+                }.getType()));
+            }
         }
 
         return errorOrResult(getShort(shortId), shrt -> {
             Log.info(() -> format("find likes for shortId = %s\n", shortId));
-            var query = format("SELECT l.userId FROM Likes l WHERE l.shortId = '%s'", shortId);
+            String query = format("SELECT l.userId FROM Likes l WHERE l.shortId = '%s'", shortId);
 
             CosmosQueryRequestOptions options = new CosmosQueryRequestOptions();
 
-            List<String> usersID = likesDB.queryItems(query, options,
-                    Likes.class).stream().map(key -> key.getUserId()).collect(Collectors.toList());
+            List<String> usersID = likesDB.queryItems(query, options, Likes.class).stream()
+                    .map(Likes::getUserId).collect(Collectors.toList());
 
-            setListCache(getLikesCacheKey(shortId), usersID, SOCIAL_CACHE_EXPIRATION_IN_SECONDS);
-
+            if (useCache) setListCache(getLikesCacheKey(shortId), usersID, SOCIAL_CACHE_EXPIRATION_IN_SECONDS);
             return errorOrValue(okUser(shrt.getOwnerId(), password), usersID);
         });
     }
@@ -315,38 +314,30 @@ public class AzureShorts implements Shorts {
         Log.info(() -> format("getFeed : userId = %s, pwd = %s\n", userId, password));
 
         return errorOrValue(okUser(userId, password), user -> {
-            String cachedFeed = cache.get(getFeedCacheKey(userId));
-            if (cachedFeed != null) {
-                Log.info(() -> format("feed cache hit: userId = %s\n", userId));
-                return gson.fromJson(cachedFeed, new TypeToken<List<String>>() {
-                }.getType());
+            if (useCache) {
+                String cachedFeed = cache.get(getFeedCacheKey(userId));
+                if (cachedFeed != null) {
+                    Log.info(() -> format("feed cache hit: userId = %s\n", userId));
+                    return gson.fromJson(cachedFeed, new TypeToken<List<String>>() {
+                    }.getType());
+                }
             }
 
             try {
-                var allFollowedQuery = format("SELECT f.followee FROM Following f WHERE f.follower = '%s'", userId);
-                List<String> followedUsers = followersDB.queryItems(allFollowedQuery,
-                        new CosmosQueryRequestOptions(),
-                        Following.class)
-                        .stream()
-                        .map(Following::getFollowee)
-                        .collect(Collectors.toList());
-
+                String allFollowedQuery = format("SELECT f.followee FROM Following f WHERE f.follower = '%s'", userId);
+                List<String> followedUsers = followersDB
+                        .queryItems(allFollowedQuery, new CosmosQueryRequestOptions(), Following.class)
+                        .stream().map(Following::getFollowee).collect(Collectors.toList());
                 followedUsers.add(userId);
 
-                String userList = followedUsers.stream()
-                        .map(id -> "'" + id + "'")
-                        .collect(Collectors.joining(","));
+                String userList = followedUsers.stream().map(id -> "'" + id + "'").collect(Collectors.joining(","));
+                String followedShortsQuery = format("SELECT s.shortId FROM Short s WHERE s.ownerId IN (%s) ORDER BY s.timestamp DESC", userList);
+                List<String> shorts = shortsDB
+                        .queryItems(followedShortsQuery, new CosmosQueryRequestOptions(), Short.class)
+                        .stream().map(Short::getShortId).collect(Collectors.toList());
 
-                var followedShortsQuery = format(
-                        "SELECT s.shortId FROM Short s WHERE s.ownerId IN (%s) ORDER BY s.timestamp DESC", userList);
+                if (useCache) setListCache(getFeedCacheKey(userId), shorts, FEED_CACHE_EXPIRATION_IN_SECONDS);
 
-                List<String> shorts = shortsDB.queryItems(followedShortsQuery,
-                        new CosmosQueryRequestOptions(),
-                        Short.class)
-                        .stream()
-                        .map(Short::getShortId)
-                        .collect(Collectors.toList());
-                setListCache(getFeedCacheKey(userId), shorts, FEED_CACHE_EXPIRATION_IN_SECONDS);
                 return shorts;
             } catch (Exception e) {
                 return new ArrayList<>();
@@ -366,54 +357,45 @@ public class AzureShorts implements Shorts {
             Result<List<String>> followersResult = followers(userId, password);
             List<String> followerIds = followersResult.isOK() ? followersResult.value() : new ArrayList<>();
 
-            var selectShortsQuery = format("SELECT s.shortId FROM Short s WHERE s.ownerId = '%s'", userId);
+            String selectShortsQuery = format("SELECT s.shortId FROM Short s WHERE s.ownerId = '%s'", userId);
             CosmosQueryRequestOptions options = new CosmosQueryRequestOptions();
 
-            List<String> shortsID = shortsDB.queryItems(selectShortsQuery, options,
-                    Short.class).stream().map(key -> key.getShortId()).collect(Collectors.toList());
+            List<String> shortsID = shortsDB.queryItems(selectShortsQuery, options, Short.class)
+                    .stream().map(Short::getShortId).toList();
 
             if (!shortsID.isEmpty()) {
                 shortsID.forEach(s -> {
                     shortsDB.deleteItem(s, new PartitionKey(s), null);
-                    cache.delete(getShortCacheKey(s));
+                    if (useCache) cache.delete(getShortCacheKey(s));
                 });
-                cache.delete(getUserShortsCacheKey(userId));
+                if (useCache) cache.delete(getUserShortsCacheKey(userId));
             }
 
-            List<Following> followers = followersDB
-                    .queryItems(format("SELECT * FROM Following f WHERE f.followee = '%s'",
-                            userId),
-                            new CosmosQueryRequestOptions(),
-                            Following.class)
-                    .stream().collect(Collectors.toList());
+            List<Following> followers = followersDB.queryItems(
+                            format("SELECT * FROM Following f WHERE f.followee = '%s'", userId),
+                            new CosmosQueryRequestOptions(), Following.class)
+                    .stream().toList();
 
             if (!followers.isEmpty()) {
                 followers.forEach(f -> followersDB.deleteItem(f.getId(), new PartitionKey(f.getFollowee()), null));
-                cache.delete(getFollowersCacheKey(userId));
+                if (useCache) cache.delete(getFollowersCacheKey(userId));
             }
 
             if (!shortsID.isEmpty()) {
-                String shortsIdList = shortsID.stream()
-                        .map(s -> "'" + s + "'")
-                        .collect(Collectors.joining(","));
+                String shortsIdList = shortsID.stream().map(s -> "'" + s + "'").collect(Collectors.joining(","));
 
-                var likesQuery = format("SELECT * FROM Likes l WHERE l.shortId IN (%s)",
-                        shortsIdList);
-                List<Likes> likes = likesDB.queryItems(likesQuery,
-                        new CosmosQueryRequestOptions(),
-                        Likes.class)
-                        .stream()
-                        .collect(Collectors.toList());
+                String likesQuery = format("SELECT * FROM Likes l WHERE l.shortId IN (%s)", shortsIdList);
+                List<Likes> likes = likesDB.queryItems(likesQuery, new CosmosQueryRequestOptions(), Likes.class)
+                        .stream().toList();
 
                 if (!likes.isEmpty()) {
                     likes.forEach(l -> {
                         likesDB.deleteItem(l.getId(), new PartitionKey(l.getShortId()), null);
-                        cache.delete(getLikesCacheKey(l.getShortId()));
+                        if (useCache) cache.delete(getLikesCacheKey(l.getShortId()));
                     });
                 }
             }
-
-            invalidateFollowersFeedCache(followerIds);
+            if (useCache) invalidateFollowersFeedCache(followerIds);
 
             return ok();
         } catch (Exception e) {
@@ -421,6 +403,13 @@ public class AzureShorts implements Shorts {
         }
     }
 
+    /**
+     * Returns the user
+     *
+     * @param userId requested
+     * @param pwd    to validate user
+     * @return see {@link tukano.api.Users#getUser(String, String)}
+     */
     protected Result<User> okUser(String userId, String pwd) {
         if (System.getProperty("USER_DB_TYPE").equals("NOSQL")) {
             return AzureUsersWithNoSQL.getInstance().getUser(userId, pwd);
@@ -428,31 +417,65 @@ public class AzureShorts implements Shorts {
         return AzureUsersWithSQL.getInstance().getUser(userId, pwd);
     }
 
+    /**
+     * Creates the string to query the "short" cache
+     *
+     * @param shortId requested
+     * @return the query string
+     */
     private String getShortCacheKey(String shortId) {
         return SHORT_CACHE_KEY + shortId;
     }
 
+    /**
+     * Creates the string to query the "user-shorts" cache
+     *
+     * @param userId requested
+     * @return the query string
+     */
     private String getUserShortsCacheKey(String userId) {
         return USER_SHORTS_CACHE_KEY + userId;
     }
 
+    /**
+     * Returns the string to query the "likes" cache
+     *
+     * @param shortId requested
+     * @return the query string
+     */
     private String getLikesCacheKey(String shortId) {
         return LIKES_CACHE_KEY + shortId;
     }
 
+    /**
+     * Returns the string to query the "followers" cache
+     *
+     * @param userId requested
+     * @return the query string
+     */
     private String getFollowersCacheKey(String userId) {
         return FOLLOWERS_CACHE_KEY + userId;
     }
 
+    /**
+     * Returns the string to query the "feed" cache
+     *
+     * @param userId requested
+     * @return the query string
+     */
     private String getFeedCacheKey(String userId) {
         return FEED_CACHE_KEY + userId;
     }
 
+    /**
+     *
+     *
+     * @param shortToBeCached
+     */
     private void setShortCache(Short shortToBeCached) {
         if (shortToBeCached != null) {
             Log.info(() -> format("setShortCache : shortId = %s\n", shortToBeCached.getShortId()));
-            cache.setWithExpiry(getShortCacheKey(shortToBeCached.getShortId()), gson.toJson(shortToBeCached),
-                    SHORT_CACHE_EXPIRATION_IN_SECONDS);
+            cache.setWithExpiry(getShortCacheKey(shortToBeCached.getShortId()), gson.toJson(shortToBeCached), SHORT_CACHE_EXPIRATION_IN_SECONDS);
         }
     }
 

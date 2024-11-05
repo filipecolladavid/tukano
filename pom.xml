@@ -26,7 +26,7 @@
 				<version>2.13.0</version>
 			    <configuration>
                     <schemaVersion>v2</schemaVersion>
-                    <resourceGroup>scc-tukano-rg-70056</resourceGroup>
+                    <resourceGroup>rg70666-northeurope</resourceGroup>
                     <appName>tukano-70056-70666</appName>
                     <pricingTier>F1</pricingTier>
                     <region>westeurope</region>

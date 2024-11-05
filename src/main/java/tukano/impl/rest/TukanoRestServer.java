@@ -1,6 +1,5 @@
 package tukano.impl.rest;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;

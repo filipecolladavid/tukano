@@ -1,46 +1,17 @@
-# Date : 1/11/2024
-#ENV=cloud
-## ENV=local
-#USER_DB_TYPE=SQL
-#
-## Blobs
-#BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=scc70056;AccountKey=kgk69wBGUOhxvafNpqniO6eaON4nT07gSlH798giINNxBaDWhDqpuAHUjrSM8AyvhumH7xZxCK8Q+ASt19dFHg==;EndpointSuffix=core.windows.net
-#CONTAINER_NAME=tukano
-#STORAGE_ACCOUNT=scc70056
-#
-## Cache
-#REDIS_HOST=tukano-70056.redis.cache.windows.net
-#REDIS_PASSWORD=FOGAAXVgtJaYiXLlFbyJmeo7bLefTZvXkAzCaEbfETw=
-#
-## Cosmos NOSQL
-#COSMOSDB_NOSQL_URL=https://scc70056.documents.azure.com/
-#COSMOSDB_NOSQL_KEY=fx20nonbvOiEDpOIxY92Rfu1XrKIaAdoS9Oev88K75IKP3zm3JYqC7JQGpqrlnz7xny0SbQROlfDACDb0xNJoQ==
-#COSMOSDB_NOSQL_NAME=scc70056
-#SHORTS_DB_COLLECTION = shorts
-#LIKES_DB_COLLECTION = likes
-#FOLLOWERS_DB_COLLECTION = followers
-#
-# Cosmos SQL
-
-
-
 ENV=cloud
 USER_DB_TYPE=NOSQL
-CACHE=true
-# Date : 11/5/24, 5:32 PM
+CACHE=false
+# Date : 11/6/24, 9:55 PM
 # BLOBS
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=FdeymwNwXNqOlIfHaED+QIM09b13Q3eOcTDPikVm3eaJuTNrTDYZXyNcx8NqhUrHFM5sXyq2HtL/+ASt6zPX8w==;EndpointSuffix=core.windows.net
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=UKcoYV02f/Ebef5w0mJmuncnyrBmpiFN3tuoo5bBC2oDUY64r5PKJUQiEoreZ1sJlAC1vce0Y3vi+AStmq5ufg==;EndpointSuffix=core.windows.net
 STORAGE_ACCOUNT=sto70666northeurope
 CONTAINER_NAME=shorts
 # COSMOSDB
-COSMOSDB_NOSQL_KEY=mWQ4mKHCCI7yBBjSHxKNa8sEhiJsdcIv8II4j2yd4N5BV8WtZlhaplyMWTKaVipNcwD3QTXDr04JACDbal7utA==
+COSMOSDB_NOSQL_KEY=M9dQhykQHcAUi1BBPEzmkwqeGyjyrbcttWwwyQ7DZjmidJpXfIppT17h8qM2tu4XwfjHrzZwipBtACDbWPXqVQ==
 COSMOSDB_NOSQL_URL=https://cosmos70666.documents.azure.com:443/
 COSMOSDB_NOSQL_NAME=cosmosdb70666
 SHORTS_DB_COLLECTION=shorts
 FOLLOWERS_DB_COLLECTION=followers
 LIKES_DB_COLLECTION=likes
-# REDIS
-REDIS_PASSWORD=o1mFAn3ic6fRnhWUCjAcKGMJeAyp2IoM3AzCaBFBPSM=
-REDIS_HOST=redis70666northeurope.redis.cache.windows.net
 
 

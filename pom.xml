@@ -8,10 +8,10 @@
 	<properties>
 		<azure.config.path>/usr/local/tomcat/webapps/ROOT/WEB-INF/classes</azure.config.path>
 		<docker.config.path>/usr/local/tomcat/webapps/tukano/WEB-INF/classes</docker.config.path>
-		<azure.functions.maven.plugin.version>1.36.0</azure.functions.maven.plugin.version>
+		<azure.functions.maven.plugin.version>1.19.0</azure.functions.maven.plugin.version>
 		<azure.functions.java.library.version>3.1.0</azure.functions.java.library.version>
 		<functionAppName>fun70666northeurope</functionAppName>
-		<functionRegion>westeurope</functionRegion>
+		<functionRegion>northeurope</functionRegion>
 		<functionStorageAccountName>sto70666northeurope</functionStorageAccountName>
 		<functionResourceGroup>rg70666-northeurope</functionResourceGroup>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,7 +29,7 @@
                     <resourceGroup>rg70666-northeurope</resourceGroup>
                     <appName>tukano-70056-70666-123</appName>
                     <pricingTier>F1</pricingTier>
-                    <region>westeurope</region>
+                    <region>northeurope</region>
 					<appSettings>
 						<property>
 							<name>CONFIG_PATH</name>
@@ -54,35 +54,35 @@
 			    </configuration>
 			</plugin>
 			<plugin>
-			<groupId>com.microsoft.azure</groupId>
-			<artifactId>azure-functions-maven-plugin</artifactId>
-			<version>${azure.functions.maven.plugin.version}</version>
-			<configuration>
-				<appName>${functionAppName}</appName>
-				<storageAccountName>${functionStorageAccountName}</storageAccountName>
-				<resourceGroup>${functionResourceGroup}</resourceGroup>
-				<region>${functionRegion}</region>
-				<disableAppInsights>false</disableAppInsights>
-				<buildJarWithDependencies>false</buildJarWithDependencies>
-				<runtime>
-					<javaVersion>17</javaVersion>
-				</runtime>
-				<appSettings>
-					<property>
-						<name>FUNCTIONS_EXTENSION_VERSION</name>
-						<value>~4</value>
-					</property>
-				</appSettings>
-			</configuration>
-			<executions>
-				<execution>
-					<id>package-functions</id>
-					<goals>
-						<goal>package</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>azure-functions-maven-plugin</artifactId>
+				<version>${azure.functions.maven.plugin.version}</version>
+				<configuration>
+					<appName>${functionAppName}</appName>
+					<storageAccountName>${functionStorageAccountName}</storageAccountName>
+					<resourceGroup>${functionResourceGroup}</resourceGroup>
+					<region>${functionRegion}</region>
+					<disableAppInsights>false</disableAppInsights>
+					<buildJarWithDependencies>false</buildJarWithDependencies>
+					<runtime>
+						<javaVersion>17</javaVersion>
+					</runtime>
+					<appSettings>
+						<property>
+							<name>FUNCTIONS_EXTENSION_VERSION</name>
+							<value>~4</value>
+						</property>
+					</appSettings>
+				</configuration>
+				<executions>
+					<execution>
+						<id>package-functions</id>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>

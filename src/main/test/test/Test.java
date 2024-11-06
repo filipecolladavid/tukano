@@ -105,7 +105,7 @@ public class Test {
         //
         // });
 
-        printBanner("DELETE USERS");
+//        printBanner("DELETE USERS");
 //        show(users.deleteUser("wales", "12345"));
 //        show(users.deleteUser("liskov", "54321"));
 

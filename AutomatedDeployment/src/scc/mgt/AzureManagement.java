@@ -46,9 +46,9 @@ import com.azure.resourcemanager.storage.models.StorageAccountSkuType;
 public class AzureManagement {
     // TODO: These variable allow you to control what is being created
     static final boolean CREATE_REDIS = true;
-    static final boolean CREATE_STORAGE = true;
-    static final boolean CREATE_COSMOSDB = true;
-    static final boolean CREATE_FUNCTIONS = false;
+    static final boolean CREATE_STORAGE = false;
+    static final boolean CREATE_COSMOSDB = false;
+    static final boolean CREATE_FUNCTIONS = true;
 
     // TODO: change your suffix and other names if you want
     static final String MY_ID = "70666"; // Add your suffix here

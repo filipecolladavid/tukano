@@ -27,7 +27,7 @@
 			    <configuration>
                     <schemaVersion>v2</schemaVersion>
                     <resourceGroup>rg70666-northeurope</resourceGroup>
-                    <appName>tukano-70056-70666</appName>
+                    <appName>tukano-70056-70666-123</appName>
                     <pricingTier>F1</pricingTier>
                     <region>westeurope</region>
 					<appSettings>

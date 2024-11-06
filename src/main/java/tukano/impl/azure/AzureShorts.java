@@ -106,6 +106,7 @@ public class AzureShorts implements Shorts {
 
         this.cache = AzureCache.getInstance();
         this.useCache = Boolean.parseBoolean(System.getProperty("CACHE"));
+        System.out.println(useCache);
         this.gson = new Gson();
     }
 

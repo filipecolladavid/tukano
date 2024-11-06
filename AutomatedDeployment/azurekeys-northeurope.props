@@ -1,12 +1,4 @@
-# Date : 11/5/24, 5:32 PM
-# BLOBS
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=FdeymwNwXNqOlIfHaED+QIM09b13Q3eOcTDPikVm3eaJuTNrTDYZXyNcx8NqhUrHFM5sXyq2HtL/+ASt6zPX8w==;EndpointSuffix=core.windows.net
-STORAGE_ACCOUNT=sto70666northeurope
-CONTAINER_NAME=shorts
-# COSMOSDB
-COSMOSDB_NOSQL_KEY=mWQ4mKHCCI7yBBjSHxKNa8sEhiJsdcIv8II4j2yd4N5BV8WtZlhaplyMWTKaVipNcwD3QTXDr04JACDbal7utA==
-COSMOSDB_NOSQL_URL=https://cosmos70666.documents.azure.com:443/
-COSMOSDB_NOSQL_NAME=cosmosdb70666
-SHORTS_DB_COLLECTION=shorts
-FOLLOWERS_DB_COLLECTION=followers
-LIKES_DB_COLLECTION=likes
+# Date : 11/6/24, 12:31 AM
+# REDIS
+REDIS_PASSWORD=o1mFAn3ic6fRnhWUCjAcKGMJeAyp2IoM3AzCaBFBPSM=
+REDIS_HOST=redis70666northeurope.redis.cache.windows.net

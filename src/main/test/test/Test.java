@@ -33,7 +33,7 @@ public class Test {
         var serverURILocal = String.format("http://localhost:%s/tukano/rest", TukanoRestServer.PORT);
 
         //TODO - change to your own url
-        var serverURIAzure = "https://tukano-70056-70666-2.azurewebsites.net/rest";
+        var serverURIAzure = "https://tukano-70056-70666-123.azurewebsites.net/rest";
         var serverURI = System.getProperty("ENV").equals("local") ? serverURILocal : serverURIAzure;
         System.out.println(serverURI);
 

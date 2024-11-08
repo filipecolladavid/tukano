@@ -32,7 +32,7 @@ public class Test {
 
         var serverURILocal = String.format("http://localhost:%s/tukano/rest", TukanoRestServer.PORT);
 
-        //TODO - change to your own url
+        // TODO - change to your own url
         var serverURIAzure = "https://tukano-70056-70666-123.azurewebsites.net/rest";
         var serverURI = System.getProperty("ENV").equals("local") ? serverURILocal : serverURIAzure;
         System.out.println(serverURI);
@@ -72,7 +72,6 @@ public class Test {
 
         var s2id = s2.value().getShortId();
 
-
         printBanner("FOLLOW");
         show(shorts.follow("liskov", "wales", true, "54321"));
         show(shorts.followers("wales", "12345"));
@@ -83,17 +82,17 @@ public class Test {
         show(shorts.likes(s2id, "54321"));
 
         printBanner("GET FEED");
-        show(shorts.getFeed("liskov", "12345"));
+        show(shorts.getFeed("liskov", "54321"));
 
         printBanner("GET SHORT(s)");
-        show(shorts.getShort(s2id));;
+        show(shorts.getShort(s2id));
+        ;
         show(shorts.getShorts("wales"));
-
 
         printBanner("GET FOLLOWERS");
         show(shorts.followers("wales", "12345"));
         printBanner("GET FEED");
-        show(shorts.getFeed("liskov", "12345"));
+        show(shorts.getFeed("liskov", "54321"));
         printBanner("GET SHORT");
         show(shorts.getShort(s2id));
         //
@@ -105,9 +104,9 @@ public class Test {
         //
         // });
 
-//        printBanner("DELETE USERS");
-//        show(users.deleteUser("wales", "12345"));
-//        show(users.deleteUser("liskov", "54321"));
+        printBanner("DELETE USERS");
+        show(users.deleteUser("wales", "12345"));
+        show(users.deleteUser("liskov", "54321"));
 
         System.exit(0);
     }

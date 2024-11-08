@@ -24,16 +24,10 @@ public class AzureBlobs implements Blobs {
 
     public String baseURI;
 
-    private final AzureCache cache;
-
     private String storageConnectionString;
     private String containerName;
     private String storageAccount;
     private BlobContainerClient containerClient;
-
-    private static final String BLOB_CACHE_KEY = "blobs:";
-    private static final int MAX_CACHE_SIZE = 1024 * 1024;
-    private static final int CACHE_EXPIRY = 3600; // 1 hour in seconds
 
     private AzureBlobs() {
         this.storageConnectionString = System.getProperty("BLOB_STORE_CONNECTION");
@@ -41,9 +35,9 @@ public class AzureBlobs implements Blobs {
         this.containerClient = new BlobContainerClientBuilder().connectionString(storageConnectionString)
                 .containerName(containerName).buildClient();
         this.storageAccount = System.getProperty("STORAGE_ACCOUNT");
-        this.baseURI = String.format("https://%s.blob.core.windows.net/%s/", storageAccount, containerName);
 
-        this.cache = AzureCache.getInstance();
+        this.baseURI = String.format("https://%s.blob.core.windows.net/%s/", storageAccount, containerName);
+        Log.info(() -> format("Created Azure Blob Container %s", containerName));
     }
 
     synchronized public static Blobs getInstance() {
@@ -65,8 +59,6 @@ public class AzureBlobs implements Blobs {
         var data = BinaryData.fromBytes(bytes);
         blob.upload(data, true);
 
-        setBlobCache(blobId, bytes);
-
         return ok();
 
     }
@@ -75,11 +67,6 @@ public class AzureBlobs implements Blobs {
     public Result<byte[]> download(String blobId, String token) {
         Log.info(() -> format("download : blobId = %s, token=%s\n", blobId, token));
 
-        byte[] cachedData = getFromBlobCache(blobId);
-
-        if (cachedData != null)
-            return ok(cachedData);
-
         var blob = containerClient.getBlobClient(blobId);
 
         if (!blob.exists()) {
@@ -87,7 +74,6 @@ public class AzureBlobs implements Blobs {
         }
 
         byte[] data = blob.downloadContent().toBytes();
-        setBlobCache(blobId, data);
 
         return ok(data);
     }
@@ -95,12 +81,6 @@ public class AzureBlobs implements Blobs {
     public Result<Void> downloadToSink(String blobId, Consumer<byte[]> sink, String token) {
         Log.info(() -> format("downloadToSink : blobId = %s, token = %s\n", blobId, token));
 
-        byte[] cachedData = getFromBlobCache(blobId);
-        if (cachedData != null) {
-            sink.accept(cachedData);
-            return ok();
-        }
-
         var blob = containerClient.getBlobClient(blobId);
 
         if (!blob.exists()) {
@@ -108,7 +88,6 @@ public class AzureBlobs implements Blobs {
         }
 
         byte[] data = blob.downloadContent().toBytes();
-        setBlobCache(blobId, data);
 
         sink.accept(data);
         return ok();
@@ -119,8 +98,6 @@ public class AzureBlobs implements Blobs {
         Log.info(() -> format("delete : blobId = %s, token=%s\n", blobId, token));
 
         containerClient.getBlobClient(blobId).deleteIfExists();
-
-        deleteBlobCache(blobId);
 
         return ok();
     }
@@ -135,37 +112,9 @@ public class AzureBlobs implements Blobs {
 
             if (blobName.startsWith(userId)) {
                 containerClient.getBlobClient(blobName).deleteIfExists();
-
-                deleteBlobCache(blobName);
             }
         }
 
         return ok();
-    }
-
-    private String getBlobCacheKey(String blobId) {
-        return BLOB_CACHE_KEY + blobId;
-    };
-
-    private void setBlobCache(String blobId, byte[] data) {
-        if (data != null && data.length <= MAX_CACHE_SIZE) {
-            Log.info(() -> format("caching blob: blobId = %s, size = %d bytes\n", blobId, data.length));
-            cache.setWithExpiry(getBlobCacheKey(blobId), Hex.of(data), CACHE_EXPIRY);
-        }
-    };
-
-    private void deleteBlobCache(String blobId) {
-        Log.info(() -> format("deleting blob cache: blobId = %s\n", blobId));
-        cache.delete(getBlobCacheKey(blobId));
-    };
-
-    private byte[] getFromBlobCache(String blobId) {
-        var cachedHex = cache.get(getBlobCacheKey(blobId));
-        if (cachedHex != null) {
-            Log.info(() -> format("blob cache hit: blobId = %s\n", blobId));
-            return Hex.toBytes(cachedHex);
-        }
-        Log.info(() -> format("blob cache miss: blobId = %s\n", blobId));
-        return null;
     }
 }

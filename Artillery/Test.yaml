@@ -8,9 +8,9 @@ config:
       duration: 10
       arrivalRate: 1
       rampTo: 5
-    - name: "Main test"    # MAIN TESTS: duration: 30s, with 10 new clients/sec. Should be varied depending on scenario.
-      duration: 30
-      arrivalRate: 10
+#    - name: "Main test"    # MAIN TESTS: duration: 30s, with 10 new clients/sec. Should be varied depending on scenario.
+#      duration: 30
+#      arrivalRate: 10
 scenarios:
   - name: 'Register, create short and blob'
     weight: 1
@@ -26,27 +26,25 @@ scenarios:
           url: "/users/{{ lastRegisteredUserId }}"
           qs:
             pwd: "{{ pwd }}"
-      - post:
-          url: "/shorts/{{ lastRegisteredUserId }}"
-          headers:
-            Content-Type: application/json
-            Accept: application/json
-          qs:
-            pwd: "{{ pwd }}"
-          beforeRequest: "createRandomShort"
-          afterResponse: "processShortReply"
-          capture:
-            json: "$.shortId"
-            as: "shortId"
-      - get:
-          url: "/shorts/{{ shortId }}"
-      - post:
-          url: "/blobs/{{ $randomString() }}"
-          headers:
-            Content-Type: application/json
-            Accept: application/json
-          qs:
-            pwd: "{{ pwd }}"
-          beforeRequest: "generateRandomBlob"
-          afterResponse: "processBlobReply"
+#      - post:
+#          url: "/shorts/{{ lastRegisteredUserId }}"
+#          headers:
+#            Content-Type: application/json
+#            Accept: application/json
+#          qs:
+#            pwd: "{{ pwd }}"
+#          beforeRequest: "createRandomShort"
+#          afterResponse: "processShortReply"
+#      - get:
+#          url: "/shorts/{{ lastShortId }}"
+#      - post:
+#          url: "/blobs/{{ lastShortId }}"
+#          headers:
+#            Content-Type: application/octet-stream
+#            Accept: application/json
+#          qs:
+#            pwd: "{{ pwd }}"
+#          beforeRequest: "generateRandomBlob"
+#          afterResponse: "processBlobReply"
+
 

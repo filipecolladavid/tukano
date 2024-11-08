@@ -62,6 +62,7 @@ function uploadRandomizedUser(requestParams, context, ee, next) {
 		email: email,
 		displayName: username,
 	};
+	context.vars.pwd = user.pwd;
 	requestParams.body = JSON.stringify(user);
 
 	context.vars.lastRegisteredUserId = username;
@@ -90,8 +91,11 @@ function createRandomShort(requestParams, context, ee, next) {
 function processShortReply(requestParams, response, context, ee, next) {
 	if (typeof response.body !== "undefined" && response.body.length > 0) {
 		createdShorts.push(response.body);
-		if (response.body.shortId) {
-			context.vars.lastShortId = response.body.shortId;
+		let responseJson = JSON.parse(response.body)
+		let blobURL = responseJson.blobUrl;
+		if (blobURL !== undefined) {
+			let id = blobURL.split("/").pop();
+			context.vars.lastShortId = id;
 		}
 	}
 	return next();

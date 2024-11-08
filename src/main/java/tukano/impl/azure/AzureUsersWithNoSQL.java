@@ -88,6 +88,7 @@ public class AzureUsersWithNoSQL implements Users {
             Result<User> userAlreadyExists = this.getUser(user.getUserId(), user.getPwd());
             if (userAlreadyExists.isOK()) return error(ErrorCode.CONFLICT);
             if (userAlreadyExists.error().equals(ErrorCode.NOT_FOUND)) {
+                user.setId(null);
                 user.setUserId(user.getUserId());
                 CosmosItemResponse<User> response = usersDB.createItem(user);
                 if (response.getStatusCode() < 300) {
@@ -102,6 +103,7 @@ public class AzureUsersWithNoSQL implements Users {
             }
             return error(userAlreadyExists.error());
         } catch (Exception e) {
+            e.printStackTrace();
             return error(ErrorCode.INTERNAL_ERROR);
         }
     }

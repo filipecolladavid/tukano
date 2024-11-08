@@ -117,7 +117,7 @@ public class AzureShorts implements Shorts {
         return errorOrResult(okUser(userId, password), user -> {
             try {
                 String shortId = format("%s+%s", userId, UUID.randomUUID());
-                String blobUrl = format("%s/%s/%s", baseURI, Blobs.NAME, shortId);
+                String blobUrl = format("%s/%s", baseURI, shortId);
                 Short shrt = new Short(shortId, userId, blobUrl);
 
                 CosmosItemResponse<Short> response = shortsDB.createItem(shrt);

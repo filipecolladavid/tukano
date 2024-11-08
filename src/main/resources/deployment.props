@@ -1,17 +1,16 @@
+# FILIPE
 ENV=cloud
-USER_DB_TYPE=NOSQL
+USER_DB_TYPE=SQL
 CACHE=false
-# Date : 11/6/24, 9:55 PM
+# Date : 07/11/24, 10:33
 # BLOBS
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=UKcoYV02f/Ebef5w0mJmuncnyrBmpiFN3tuoo5bBC2oDUY64r5PKJUQiEoreZ1sJlAC1vce0Y3vi+AStmq5ufg==;EndpointSuffix=core.windows.net
+BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=xiZGVG7cu+r8pthly70OZU0olPsBQ2DbFPvEdYRbcIHaSkbzU+xcnANFNZ9H7A4m8sJMRlP2EdOz+AStKiJ6qA==;EndpointSuffix=core.windows.net
 STORAGE_ACCOUNT=sto70666northeurope
 CONTAINER_NAME=shorts
 # COSMOSDB
-COSMOSDB_NOSQL_KEY=M9dQhykQHcAUi1BBPEzmkwqeGyjyrbcttWwwyQ7DZjmidJpXfIppT17h8qM2tu4XwfjHrzZwipBtACDbWPXqVQ==
+COSMOSDB_NOSQL_KEY=LcaAZXOqCH5CaxgInN8ijEq4oOcf6QaAj4niZFuqCmDi3oqhVk62LUqxQWvsQXarOm441zMKo7APACDbnuK1SA==
 COSMOSDB_NOSQL_URL=https://cosmos70666.documents.azure.com:443/
 COSMOSDB_NOSQL_NAME=cosmosdb70666
 SHORTS_DB_COLLECTION=shorts
 FOLLOWERS_DB_COLLECTION=followers
 LIKES_DB_COLLECTION=likes
-
-

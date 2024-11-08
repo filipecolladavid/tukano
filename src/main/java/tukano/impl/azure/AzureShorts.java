@@ -178,9 +178,6 @@ public class AzureShorts implements Shorts {
         }
     }
 
-    /**
-     * TODO - only deleting from cache ?
-     */
     @Override
     public Result<Void> deleteShort(String shortId, String password) {
         Log.info(() -> format("deleteShort : shortId = %s, pwd = %s\n", shortId, password));

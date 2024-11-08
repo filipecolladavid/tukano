@@ -257,7 +257,7 @@ public class AzureUsersWithSQL implements Users {
 
     /**
      * Deletes a recently searched user
-     * TODO - what's the use of pattern ??
+     *
      * @param pattern to be deleted
      */
     private void deleteSearchCache(String pattern) {

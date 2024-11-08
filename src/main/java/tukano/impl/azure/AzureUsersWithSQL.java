@@ -84,8 +84,11 @@ public class AzureUsersWithSQL implements Users {
             }
             Log.info(() -> format("user cache miss: userId = %s\n", userId));
         }
-        user = DB.getOne(userId, User.class);
-        if (user.isOK()) {
+
+        String query = format("SELECT * FROM \"users\" where \"userId\" = '%s' LIMIT 1", userId);
+        user = Result.ok(DB.sql(query, User.class).stream().findFirst().orElse(null));
+
+        if (user.isOK() && useCache) {
             setUserCache(user.value());
         }
 

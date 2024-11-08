@@ -8,8 +8,11 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import com.azure.core.util.BinaryData;
+import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
+
 import static tukano.api.Result.ErrorCode.NOT_FOUND;
+
 import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.azure.storage.blob.models.BlobItem;
 
@@ -23,6 +26,8 @@ public class AzureBlobs implements Blobs {
     private static Logger Log = Logger.getLogger(AzureBlobs.class.getName());
 
     public String baseURI;
+
+    private boolean blobFullURL = false;
 
     private String storageConnectionString;
     private String containerName;
@@ -66,15 +71,20 @@ public class AzureBlobs implements Blobs {
     @Override
     public Result<byte[]> download(String blobId, String token) {
         Log.info(() -> format("download : blobId = %s, token=%s\n", blobId, token));
+        BlobClient blob;
+        if (blobFullURL) {
+            String id = blobId.split("/")[blobId.split("/").length - 1];
+            blob = containerClient.getBlobClient(id);
 
-        var blob = containerClient.getBlobClient(blobId);
+        } else {
+            blob = containerClient.getBlobClient(blobId);
+        }
 
         if (!blob.exists()) {
             return error(NOT_FOUND);
         }
 
         byte[] data = blob.downloadContent().toBytes();
-
         return ok(data);
     }
 

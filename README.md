@@ -3,7 +3,7 @@ This repository contains the source code for the first project
 of the Cloud Computing System course.
 
 ## Students:
-Filipe Colla David - 70666 - f.david@campus.fct.unl.pt
+Filipe Colla David - 70666 - f.david@campus.fct.unl.pt <br>
 Victor Ditadi Perdigão -  70056 - v.perdigao@fct.unl.pt
 
 ## Usage

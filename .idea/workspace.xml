@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Artillery/test-full-sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Artillery/Test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Artillery/Test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

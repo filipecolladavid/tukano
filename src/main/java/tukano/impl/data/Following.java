@@ -1,36 +1,25 @@
 package tukano.impl.data;
 
 import java.util.Objects;
-import java.util.UUID;
-
-import org.hibernate.annotations.PartitionKey;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Following {
+public class Following{
 
-	@Id
-	String id;
-
-	@PartitionKey
+	@Id 
+	String follower;
+	
+	@Id 
 	String followee;
 
-	String follower;
-
-	Following() {
-	}
+	Following() {}
 
 	public Following(String follower, String followee) {
 		super();
-		this.id = UUID.randomUUID().toString();
 		this.follower = follower;
 		this.followee = followee;
-	}
-
-	public String getId() {
-		return this.id;
 	}
 
 	public String getFollower() {
@@ -70,5 +59,6 @@ public class Following {
 	public String toString() {
 		return "Following [follower=" + follower + ", followee=" + followee + "]";
 	}
-
+	
+	
 }

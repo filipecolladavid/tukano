@@ -40,7 +40,6 @@ public class RestClient {
 	
 	protected RestClient(String serverURI, String servicePath ) {
 		this.serverURI = serverURI;
-		System.out.println(serverURI);
 		this.config = new ClientConfig();
 
 		config.property(ClientProperties.READ_TIMEOUT, READ_TIMEOUT);

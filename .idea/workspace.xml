@@ -4,266 +4,114 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookies.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookiesCleanupFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookiesFilter.java" afterDir="false" />
+    <list default="true" id="411cb475-e28f-4ab9-a228-7c91b4b5736e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/src/scc/mgt/AzureManagement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/src/scc/utils/AzureProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VictorDeploymentInfo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/host.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes/mongodb.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes/redis.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes/redis.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes/tukano_deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes/tukano_deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/Blobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/Blobs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/Short.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/Short.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaBlobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaBlobs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureBlobs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureShorts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/CountingViews.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookies.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookiesCleanupFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookiesFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Following.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Following.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Likes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Likes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestBlobsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestBlobsResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestShortsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestShortsResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestUsersResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestUsersResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Hex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Hex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Hibernate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Hibernate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/IO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/IO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Props.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Props.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment_sql.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/test/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestUsersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestUsersClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/ROOT/classes/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/hibernate.cfg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/Icon_" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tukano.iml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MacroExpansionManager">
-    <option name="directoryName" value="v8mel0xb" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2oFeRXafkLgFNvftrUQZWfoLsEt" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2pCbBnNO8MBpSM1UGA4M3oVIgNd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Test.executor": "Run",
-    "Maven.tukano [com.microsoft.azure:azure-functions-maven-plugin:1.36.0:add].executor": "Run",
-    "Maven.tukano [com.microsoft.azure:azure-functions-maven-plugin:1.36.0:deploy].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "cookie-authentication",
-    "go.import.settings.migrated": "true",
+    "git-widget-placeholder": "kubernetes",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/filipecolladavid/FCT_NOVA/SCC/tukano-70056-70666/src/main/java/tukano/impl/azure/auth",
+    "last_opened_file_path": "/Users/filipecolladavid/FCT_NOVA/SCC/tukano-70056-70666",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.37227413",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Artillery" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/webapp" />
-    </key>
-  </component>
   <component name="RunManager">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="tukano-70056-70666" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="tukano-70056-70666" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="tukano-70056-70666" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="tukano-70056-70666" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="tukano-70056-70666" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="tukano-70056-70666" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="tukano-70056-70666" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="tukano-70056-70666" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Python.FlaskServer">
-      <module name="tukano-70056-70666" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Python.FlaskServer">
-      <module name="tukano-70056-70666" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="tukano-70056-70666" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="tukano-70056-70666" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test.Test" />
-      <module name="tukano" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="tukano-70056-70666" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="tukano-70056-70666" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Test" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -276,69 +124,16 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="41c1a20f-0ec1-4d5b-91d4-983af3afbaac" name="Changes" comment="" />
-      <created>1730469743387</created>
+      <changelist id="411cb475-e28f-4ab9-a228-7c91b4b5736e" name="Changes" comment="" />
+      <created>1732272871623</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1730469743387</updated>
-      <workItem from="1730469745214" duration="9000" />
-      <workItem from="1730469792908" duration="77000" />
-      <workItem from="1730469873466" duration="1443000" />
-      <workItem from="1730471643178" duration="1545000" />
-      <workItem from="1730473206608" duration="3288000" />
-      <workItem from="1730477536045" duration="20994000" />
-      <workItem from="1730551790413" duration="16577000" />
-      <workItem from="1730581982486" duration="6156000" />
-      <workItem from="1730596645852" duration="1576000" />
-      <workItem from="1730627508669" duration="8379000" />
-      <workItem from="1730754540146" duration="12029000" />
-      <workItem from="1731056932861" duration="2364000" />
-      <workItem from="1731100707024" duration="2478000" />
-      <workItem from="1731663033878" duration="16000" />
-      <workItem from="1731666355893" duration="1651000" />
+      <updated>1732272871623</updated>
+      <workItem from="1732272873070" duration="598000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="Makefile" />
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.props" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/feat/all-cosmos-table" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/.." />
-    </ignored-roots>
-  </component>
-  <component name="VgoProject">
-    <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

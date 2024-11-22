@@ -14,6 +14,9 @@ import tukano.impl.storage.FilesystemStorage;
 import utils.Hash;
 import utils.Hex;
 
+/**
+ * TODO - refactor to use nginx
+ */
 public class JavaBlobs implements Blobs {
 	
 	private static Blobs instance;

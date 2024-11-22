@@ -18,7 +18,6 @@ public class RestUsersClient extends RestClient implements Users {
 	}
 		
 	private Result<String> _createUser(User user) {
-		System.out.println("Trying to create user");
 		return super.toJavaResult( 
 			target.request()
 			.accept(MediaType.APPLICATION_JSON)

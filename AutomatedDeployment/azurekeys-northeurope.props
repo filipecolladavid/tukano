@@ -1,5 +1,0 @@
-# Date : 15/11/24, 10:34
-# BLOBS
-BLOB_STORE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=sto70666northeurope;AccountKey=qRtBp95+FhOoShwMFjK8HomrdOEeNHdHCpcfdxtSa3zAFyFFyUCvkdbaSxxEgI9aYx3Qx41deG5M+AStfhrqvQ==;EndpointSuffix=core.windows.net
-STORAGE_ACCOUNT=sto70666northeurope
-CONTAINER_NAME=shorts

@@ -1,25 +1,19 @@
 package tukano.impl.data;
 
 import java.util.Objects;
-import java.util.UUID;
-
-import org.hibernate.annotations.PartitionKey;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
 public class Likes {
-
-	@Id
-	String id;
-
-	@PartitionKey
+	
+	@Id 
 	String userId;
-
-	@PartitionKey
+	
+	@Id 
 	String shortId;
-
+	
 	public String getOwnerId() {
 		return ownerId;
 	}
@@ -29,27 +23,17 @@ public class Likes {
 	}
 
 	String ownerId;
-
-	public Likes() {
-	}
+	
+	public Likes() {}
 
 	public Likes(String userId, String shortId, String ownerId) {
-		this.id = UUID.randomUUID().toString();
 		this.userId = userId;
 		this.shortId = shortId;
 		this.ownerId = ownerId;
 	}
 
-	public String getId() {
-		return id;
-	}
-
 	public String getUserId() {
 		return userId;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public void setUserId(String userId) {
@@ -86,5 +70,6 @@ public class Likes {
 		return Objects.equals(ownerId, other.ownerId) && Objects.equals(shortId, other.shortId)
 				&& Objects.equals(userId, other.userId);
 	}
-
+	
+	
 }

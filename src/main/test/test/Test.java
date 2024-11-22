@@ -19,14 +19,7 @@ public class Test {
 	}
 	
 	public static void main(String[] args ) throws Exception {
-		new Thread( () -> {	
-			try { 
-				TukanoRestServer.main( new String[] {} );
-			} catch( Exception x ) {
-				x.printStackTrace();
-			}
-		}).start();
-
+		TukanoRestServer server = new TukanoRestServer();
 		
 		Thread.sleep(1000);
 		

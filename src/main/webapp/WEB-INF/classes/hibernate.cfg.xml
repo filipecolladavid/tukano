@@ -3,9 +3,15 @@
 	<session-factory>
 		<!-- JDBC Database connection settings -->
 		<property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-		<property name="connection.url">jdbc:hsqldb:mem:tukano</property>
-		<property name="connection.username">sa</property>
-		<property name="connection.password"></property>
+		<property name="connection.url">jdbc:postgresql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}</property>
+		<property name="connection.username">{env.DB_USER}</property>
+		<property name="connection.password">${env.DB_PASSWORD}</property>
+<!--
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://<hostname>:<port>/<database></property>
+		<property name="connection.username">your_username</property>
+		<property name="connection.password">your_password</property>
+-->
 		<!-- JDBC connection pool settings ... using built-in test pool -->
 		<property name="connection.pool_size">64</property>
 		<!-- Echo the SQL to stdout -->

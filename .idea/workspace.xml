@@ -5,71 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="411cb475-e28f-4ab9-a228-7c91b4b5736e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tukano.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azurekeys-northeurope.props" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/azureprops-northeurope.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/src/scc/mgt/AzureManagement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedDeployment/src/scc/utils/AzureProperties.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VictorDeploymentInfo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/host.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kubernetes/mongodb.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kubernetes/redis.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes/redis.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes/hibernate.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kubernetes/tukano_deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes/tukano_deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.settings.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/Blobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/Blobs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/Short.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/Short.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/api/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/api/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaBlobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaBlobs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureBlobs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureCache.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureShorts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithNoSQL.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/AzureUsersWithSQL.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/CountingViews.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookies.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookiesCleanupFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/azure/auth/RequestCookiesFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Following.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Following.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Likes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/data/Likes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestBlobsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestBlobsResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestShortsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestShortsResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestUsersResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/RestUsersResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/rest/TukanoRestServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Hex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Hex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/Hibernate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Hibernate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/IO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/IO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Props.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Props.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment.props" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/deployment_sql.props" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/test/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestUsersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/test/tukano/clients/rest/RestUsersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/ROOT/classes/hibernate.cfg.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/hibernate.cfg.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/Icon_" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tukano.iml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,32 +27,55 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="w9f7zgxw" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2pCbBnNO8MBpSM1UGA4M3oVIgNd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.tukano [org.apache.tomcat.maven:tomcat7-maven-plugin:2.1:exec-war-only].executor": "Run",
+    "Maven.tukano [org.apache.tomcat.maven:tomcat7-maven-plugin:2.1:redeploy].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "kubernetes",
+    "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/filipecolladavid/FCT_NOVA/SCC/tukano-70056-70666",
+    "last_opened_file_path": "/home/fcd/Work/FCT/SCC/tukano-70056-70666/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.37227413",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/resources" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="tukano-70056-70666" />

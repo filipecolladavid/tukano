@@ -1,42 +1,52 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: tukano-webapp
-  namespace: tukano
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: tukano-webapp
-  template:
-    metadata:
-      labels:
-        app: tukano-webapp
-    spec:
-      containers:
-      - name: webapp
-        image: fdavidfctnova/tukano70666
-        ports:
-        - containerPort: 8080
-        command: ["/usr/local/tomcat/bin/catalina.sh"]
-        args: ["run"]
-        env:
-        - name: REDIS_CACHE
-          value: "SOME VALUE TO BE ACCESSED"
-        - name: MONGO_DB_ENDPOINT
-          value: "SOME VALUE TO BE ACCESSED"
-        - name: STORAGE
-          value: "SOME VALUE TO BE ACCESSED"
-
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: tukano-webapp
+  name: my-webapp-service
+  namespace: tukano
+  labels:
+    app: my-webapp
 spec:
   selector:
-    app: tukano-webapp
+    app: my-webapp
   ports:
-  - port: 80
-    targetPort: 8080
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
   type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-webapp-replicaset
+  namespace: tukano
+  labels:
+    app: my-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-webapp
+  template:
+    metadata:
+      labels:
+        app: my-webapp
+    spec:
+      containers:
+        - name: my-webapp
+          image: /my-webapp:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30

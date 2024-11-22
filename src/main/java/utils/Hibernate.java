@@ -30,6 +30,8 @@ public class Hibernate {
 	private Hibernate() {
 		try {
 			sessionFactory = new Configuration().configure(new File(HIBERNATE_CFG_FILE)).buildSessionFactory();
+			System.out.println("Hibernate session factory created");
+			System.out.println(HIBERNATE_CFG_FILE);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,7 +86,7 @@ public class Hibernate {
 	}
 	
 	public <T> List<T> sql(String sqlStatement, Class<T> clazz) {
-		try (var session = sessionFactory.openSession()) {
+ 		try (var session = sessionFactory.openSession()) {
 			var query = session.createNativeQuery(sqlStatement, clazz);
 			return query.list();
 		} catch (Exception e) {

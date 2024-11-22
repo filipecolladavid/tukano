@@ -48,13 +48,11 @@ public class AzureUsersWithSQL implements Users {
             return error(BAD_REQUEST);
         }
 
-        //TODO - already checked in badUserInfo ?
         if (user.getId() == null) {
             user.setId(UUID.randomUUID().toString());
         }
 
         try {
-            // TODO - insert user before verifying if it's ok ?
             var newUser = DB.insertOne(user);
             if (newUser.isOK()) {
                 if (useCache) {

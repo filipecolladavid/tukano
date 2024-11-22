@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tukano-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tukano-webapp
+  template:
+    metadata:
+      labels:
+        app: tukano-webapp
+    spec:
+      containers:
+      - name: webapp
+        image: tukano-webapp:latest
+        ports:
+        - containerPort: 8080
+        command: ["/usr/local/tomcat/bin/catalina.sh"]
+        args: ["run"]
+        env:
+        - name: REDIS_CACHE
+          value: "SOME VALUE TO BE ACCESSED"
+        - name: MONGO_DB_ENDPOINT
+          value: "SOME VALUE TO BE ACCESSED"
+        - name: STORAGE
+          value: "SOME VALUE TO BE ACCESSED"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tukano-webapp
+spec:
+  selector:
+    app: tukano-webapp
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: LoadBalancer

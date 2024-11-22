@@ -9,6 +9,8 @@ data:
   POSTGRES_DB: "ps_db"
   POSTGRES_USER: "ps_user"
   POSTGRES_PASSWORD: "SecurePassword"
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: "5432"
 
 ---
 

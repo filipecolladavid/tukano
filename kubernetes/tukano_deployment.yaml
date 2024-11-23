@@ -4,10 +4,10 @@ metadata:
   name: tukano-rest-api
   namespace: tukano
   labels:
-    app: my-webapp
+    app: tukano-webapp
 spec:
   selector:
-    app: my-webapp
+    app: tukano-webapp
   ports:
     - protocol: TCP
       port: 80
@@ -21,16 +21,16 @@ metadata:
   name: tukano-rest-api-rs
   namespace: tukano
   labels:
-    app: my-webapp
+    app: tukano-webapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-webapp
+      app: tukano-webapp
   template:
     metadata:
       labels:
-        app: my-webapp
+        app: tukano-webapp
     spec:
       containers:
         - name: tukano-webapp

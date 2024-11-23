@@ -1,7 +1,10 @@
 DOCKERUSER ?= fdavidfctnova
 KUBECTL = $(if $(CLOUD),kubectl, minikube kubectl --)
 
-deploy: postgres tukano
+deploy: namespace postgres tukano
+namespace:
+	- $(KUBECTL) delete ns tukano
+	- $(KUBECTL) create namespace tukano
 postgres:
 	- $(KUBECTL) delete -f kubernetes/postgresql.yaml
 	- $(KUBECTL) apply -f kubernetes/postgresql.yaml

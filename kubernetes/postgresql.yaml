@@ -66,3 +66,37 @@ spec:
         resources:
           requests:
             storage: 10Gi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-tukano-db
+  namespace: tukano
+spec:
+  template:
+    spec:
+      containers:
+        - name: create-db
+          image: postgres:14
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: postgres-secret
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - |
+              until pg_isready -h "$POSTGRES_HOST" -p "$POSTGRES_PORT"; do
+                echo "Waiting for PostgreSQL to be ready..."
+                sleep 2
+              done
+              
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d postgres <<'EOSQL'
+              SELECT 'CREATE DATABASE tukano'
+              WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tukano')\gexec
+              EOSQL
+              
+              echo "Database 'tukano' created or already exists."
+      restartPolicy: Never
+  backoffLimit: 4

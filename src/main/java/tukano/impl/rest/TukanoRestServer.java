@@ -31,13 +31,12 @@ public class TukanoRestServer extends Application {
 	}
 
 	public TukanoRestServer() {
+		System.out.println("DB_HOST: " + System.getenv("DB_HOST"));
+		System.out.println("DB_PORT: " + System.getenv("DB_PORT"));
+		System.out.println("JDBC URL: jdbc:postgresql://" + System.getenv("DB_HOST") + ":" + System.getenv("DB_PORT") + "/tukano");
 		serverURI = String.format(SERVER_BASE_URI, IP.hostname(), PORT);
 
 		Token.setSecret(Args.valueOf("-secret", ""));
-//		String configPath = System.getenv("CONFIG_PATH");
-//		if (configPath == null) {
-//			configPath = ""; // Default for docker can't use ENV
-//		}
 		Log.info(String.format("Tukano Server ready @ %s\n", serverURI));
 	}
 

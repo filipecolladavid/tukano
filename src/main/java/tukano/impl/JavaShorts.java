@@ -141,16 +141,23 @@ public class JavaShorts implements Shorts {
 		Log.info(() -> format("getFeed : userId = %s, pwd = %s\n", userId, password));
 
 		final var QUERY_FMT = """
-				SELECT s.shortId, s.timestamp FROM Short s WHERE	s.ownerId = '%s'				
-				UNION			
-				SELECT s.shortId, s.timestamp FROM Short s, Following f 
-					WHERE 
-						f.followee = s.ownerId AND f.follower = '%s' 
-				ORDER BY s.timestamp DESC""";
+        SELECT shortId, timestamp
+        	FROM (
+            	SELECT s.shortId, s.timestamp
+            	FROM Short s
+            	WHERE s.ownerId = '%s'
+            	UNION
+            	SELECT s.shortId, s.timestamp
+            	FROM Short s
+            	JOIN Following f ON f.followee = s.ownerId
+            	WHERE f.follower = '%s'
+        	) combined_feed
+        	ORDER BY timestamp DESC
+        """;
 
-		return errorOrValue( okUser( userId, password), DB.sql( format(QUERY_FMT, userId, userId), String.class));		
+		return errorOrValue( okUser( userId, password), DB.sql( format(QUERY_FMT, userId, userId), String.class));
 	}
-		
+
 	protected Result<User> okUser( String userId, String pwd) {
 		return JavaUsers.getInstance().getUser(userId, pwd);
 	}

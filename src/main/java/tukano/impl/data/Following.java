@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Following{
+public class Following {
 
 	@Id 
 	String follower;

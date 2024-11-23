@@ -2,17 +2,8 @@
 <hibernate-configuration>
 	<session-factory>
 		<!-- JDBC Database connection settings -->
-		<property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-		<property name="connection.url">jdbc:postgresql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}</property>
-		<property name="connection.username">{env.DB_USER}</property>
-		<property name="connection.password">${env.DB_PASSWORD}</property>
-<!--
 		<property name="connection.driver_class">org.postgresql.Driver</property>
-		<property name="connection.url">jdbc:postgresql://<hostname>:<port>/<database></property>
-		<property name="connection.username">your_username</property>
-		<property name="connection.password">your_password</property>
--->
-		<!-- JDBC connection pool settings ... using built-in test pool -->
+
 		<property name="connection.pool_size">64</property>
 		<!-- Echo the SQL to stdout -->
 		<property name="show_sql">false</property>
@@ -26,6 +17,13 @@
 		<property name="hibernate.dbcp.maxIdle">10</property>
 		<property name="hibernate.dbcp.minIdle">5</property>
 		<property name="hibernate.dbcp.maxWaitMillis">-1</property>
+			<!-- JDBC Configuration -->
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.hbm2ddl.import_files">schema.sql</property>
+
 		<mapping class="tukano.api.User" />
 		<mapping class="tukano.api.Short" />
 		<mapping class="tukano.impl.data.Following" />

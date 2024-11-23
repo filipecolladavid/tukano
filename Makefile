@@ -1,16 +1,15 @@
-run: 
-	- mvn clean package && mvn assembly:single && java -cp target/tukano-1-jar-with-dependencies.jar tukano.impl.rest.TukanoRestServer
+DOCKERUSER ?= fdavidfctnova
+KUBECTL = $(if $(CLOUD),kubectl, minikube kubectl --)
 
-test:
-	- mvn clean compile assembly:single && java -cp target/tukano-1-jar-with-dependencies.jar test.Test
-dev:
-	-docker run -ti --net=host smduarte/tomcat10
-	# - docker run -ti --net=host \
-	# 	-v "$${PWD}/tomcat/conf/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml" \
-	# 	smduarte/tomcat10
+deploy: postgres tukano
+postgres:
+	- $(KUBECTL) delete -f kubernetes/postgresql.yaml
+	- $(KUBECTL) apply -f kubernetes/postgresql.yaml
+tukano:
+	- mvn clean compile package
+	- docker build -t $(DOCKERUSER)/tukano-webapp .
+	- docker push $(DOCKERUSER)/tukano-webapp
+	- $(KUBECTL) delete -f kubernetes/tukano_deployment.yaml
+	- $(KUBECTL) apply -f kubernetes/tukano_deployment.yaml
+	$(if $(CLOUD),,minikube service tukano-rest-api -n tukano)
 
-deploy-local:
-	- mvn clean compile package tomcat7:redeploy
-
-deploy-cloud:
-	- mvn clean compile package azure-webapp:deploy

@@ -20,5 +20,7 @@ tukano:
 	- docker push $(DOCKERUSER)/tukano-webapp
 	- $(KUBECTL) delete -f kubernetes/tukano_deployment.yaml
 	- $(KUBECTL) apply -f kubernetes/tukano_deployment.yaml
+	# In mac need to run this command manually
 	$(if $(CLOUD),,minikube service tukano-rest-api -n tukano)
+	$(if $(CLOUD),,minikube service minio-service -n tukano)
 

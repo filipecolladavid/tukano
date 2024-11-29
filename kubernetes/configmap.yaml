@@ -13,5 +13,11 @@ data:
   POSTGRES_PORT: "5432"
   DB_NAME: "tukano"
   MINIO_URL: "http://minio-service.tukano:9000"
+  # CHANGE THIS AFTER RUNNING
+  # minikube service minio-service -n tukano
+  # kc edit cm secrets
+  # kc delete pod tukano-rest-api-[actualpod]
+  MINIO_EXTERNAL_URL: "http://127.0.0.1:63353"
   MINIO_ACCESS_KEY: "minio"
   MINIO_SECRET_KEY: "minio123"
+  # Apply the external IP ADDRESS of MINIO afterward.

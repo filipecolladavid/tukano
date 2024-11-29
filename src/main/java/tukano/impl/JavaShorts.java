@@ -27,12 +27,15 @@ import utils.DB;
 public class JavaShorts implements Shorts {
 
 	private static Logger Log = Logger.getLogger(JavaShorts.class.getName());
+	private static String MINIO_EXTERNAL_URL;
 	
 	private static Shorts instance;
 	
 	synchronized public static Shorts getInstance() {
-		if( instance == null )
+		if( instance == null ) {
+			MINIO_EXTERNAL_URL = System.getenv("MINIO_EXTERNAL_URL");
 			instance = new JavaShorts();
+		}
 		return instance;
 	}
 	
@@ -46,7 +49,7 @@ public class JavaShorts implements Shorts {
 		return errorOrResult( okUser(userId, password), user -> {
 			
 			var shortId = format("%s+%s", userId, UUID.randomUUID());
-			var blobUrl = format("%s/%s/%s", "http://minio-service.tukano", Blobs.NAME, shortId);
+			var blobUrl = format("%s/%s/%s", MINIO_EXTERNAL_URL, Blobs.NAME, shortId);
 			var shrt = new Short(shortId, userId, blobUrl);
 
 			return errorOrValue(DB.insertOne(shrt), s -> s.copyWithLikes_And_Token(0));

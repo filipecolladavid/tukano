@@ -32,14 +32,14 @@ public class JavaShorts implements Shorts {
 	private static Shorts instance;
 	
 	synchronized public static Shorts getInstance() {
-		if( instance == null ) {
-			MINIO_EXTERNAL_URL = System.getenv("MINIO_EXTERNAL_URL");
+		if( instance == null )
 			instance = new JavaShorts();
-		}
 		return instance;
 	}
 	
-	private JavaShorts() {}
+	private JavaShorts() {
+		MINIO_EXTERNAL_URL = System.getenv("MINIO_EXTERNAL_URL");
+	}
 	
 	
 	@Override

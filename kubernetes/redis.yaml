@@ -1,25 +1,37 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: redis-cluster
-  namespace: tukano
+  name: redis
 spec:
-  serviceName: redis-cluster-service
-  replicas: 3
+  replicas: 1
   selector:
-	matchLabels:
-  	app: redis-cluster
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.0-alpine
+          args: ["--requirepass", "$(REDIS_PASSWORD)"]
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              memory: 512Mi
+          envFrom:
+            - configMapRef:
+                name: secrets
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-cluster
-  namespace: redis-namespace
+  name: redis
 spec:
-  type: ClusterIP
-  ports:
-  - port: 6379
-	targetPort: 6379
-	name: client
   selector:
-	app: redis-cluster
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379

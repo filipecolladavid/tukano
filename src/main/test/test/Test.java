@@ -23,7 +23,7 @@ public class Test {
 		
 		Thread.sleep(1000);
 		
-		var serverURI = "http://192.168.49.2:30272/rest";
+		var serverURI = "http://192.168.49.2:30472/rest";
 		
 		var blobs = new RestBlobsClient(serverURI);
 		var users = new RestUsersClient( serverURI);

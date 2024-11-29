@@ -38,42 +38,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env:
-           - name: DB_HOST
-             value: "postgres.tukano.svc.cluster.local"
-           - name: DB_PORT
-             value: "5432"
-           - name: DB_NAME
-             value: "tukano"
-           - name: DB_USER
-             value: "ps_user"
-           - name: DB_PASSWORD
-             value: "SecurePassword"
-#            - name: DB_HOST
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: postgres-secret
-#                  key: POSTGRES_HOST
-#            - name: DB_PORT
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: postgres-secret
-#                  key: POSTGRES_PORT
-#            - name: DB_NAME
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: postgres-secret
-#                  key: POSTGRES_DB
-#            - name: DB_USER
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: postgres-secret
-#                  key: POSTGRES_USER
-#            - name: DB_PASSWORD
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: postgres-secret
-#                  key: POSTGRES_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: secrets
           readinessProbe:
             httpGet:
               path: /

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: secrets
+  namespace: tukano
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: "ps_db"
+  POSTGRES_USER: "ps_user"
+  POSTGRES_PASSWORD: "SecurePassword"
+  POSTGRES_HOST: "postgres.tukano.svc.cluster.local"
+  POSTGRES_PORT: "5432"
+  DB_NAME: "tukano"
+  MINIO_URL: "http://minio-service.tukano:9000"
+  MINIO_ACCESS_KEY: "minio"
+  MINIO_SECRET_KEY: "minio123"

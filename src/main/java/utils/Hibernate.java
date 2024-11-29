@@ -32,13 +32,13 @@ public class Hibernate {
 			Configuration configuration = new Configuration().configure(new File(HIBERNATE_CFG_FILE));
 			configuration.setProperty("hibernate.connection.url",
 					String.format("jdbc:postgresql://%s:%s/tukano",
-							System.getenv("DB_HOST"),
-							System.getenv("DB_PORT")));
-			configuration.setProperty("hibernate.connection.username", System.getenv("DB_USER"));
-			configuration.setProperty("hibernate.connection.password", System.getenv("DB_PASSWORD"));
-			for (String prop : configuration.getProperties().stringPropertyNames()) {
-				System.out.println(prop + ": " + configuration.getProperty(prop));
-			}
+							System.getenv("POSTGRES_HOST"),
+							System.getenv("POSTGRES_PORT")));
+			configuration.setProperty("hibernate.connection.username", System.getenv("POSTGRES_USER"));
+			configuration.setProperty("hibernate.connection.password", System.getenv("POSTGRES_PASSWORD"));
+//			for (String prop : configuration.getProperties().stringPropertyNames()) {
+//				System.out.println(prop + ": " + configuration.getProperty(prop));
+//			}
 			sessionFactory = configuration.buildSessionFactory();
 			System.out.println("Hibernate session factory created");
 

@@ -142,9 +142,9 @@ This application can be divided basically into three major logical components, U
 \label{sec:architecture}
 This application is contained inside a Kubernetes Cluster, which manages the deployment, scaling, and operation of the microservices. As mentioned in the introduction, the application was divided into several microservices. 
 \subsection{Components, Microservices}
-As shown in Figure \ref{fig:tukano_architecture}, there are 5 major logical components, they are all defined as microservices, except for the ConfigMap, which complements the composition of these microservices, additionally each one has a service to allow them to be reached via a DNS entry, managed by the Kubernetes Control Plane, instead of using the private cluster IpAddress of that instance.
+As shown in Figure \ref{fig:tukano_architecture}, there are 5 major logical components, they are all defined as microservices, except for the ConfigMap, which complements the functionality of these microservices, additionally each one has a service to allow them to be reached via a DNS entry, managed by the Kubernetes Control Plane, instead of using the private cluster IpAddress of that instance.
 \subsubsection{MINIO Service}
-Minio\cite{minio} is a high-performance, distributed object storage system. It is designed to handle large amounts of unstructured data, such as photos, videos, log files, backups, and container images, which makes it a perfect replacement for Azure Blob Storage. It has a PVC (persistent volume claim) attached to avoid losing any data in the event of a restart of this deployment and contains a LoadBalancer that exposes this microservice to outside the cluster.
+Minio\cite{minio} is a high-performance, distributed object storage system. It is designed to handle large amounts of unstructured data, such as photos, videos, log files, backups, and container images, which makes it a perfect replacement for Azure Blob Storage. It has a PVC (persistent volume claim) attached to avoid losing any data in the event of a restart of this deployment and contains a LoadBalancer that exposes this microservice to the outside of the cluster.
 
 \subsubsection{PostgreSQL}
 This microservice serves as the main database of the application, where user, shorts, following, and likes information is stored. It is defined as a StatefulSet, which is common practice in the industry. It also has a PVC attached to prevent data loss in the event of a StatefulSet restart.
@@ -158,7 +158,7 @@ This is an individual resource that holds all the necessary environmental variab
 \subsubsection{TuKano RestAPI}
 This is a microservice containing the central REST API of this application. It holds the logic for creating and removing users, managing shorts, and storing blobs.
 \par This microservice, in its essential form, consists of a pod with a Docker container that runs the Docker image defined in the repository of this project. This Docker image is built on top of \verb|tomcat:10.0-jdk17-openjdk-slim|, which allows it to run a Tomcat webserver that exposes a specific port for communication.
-\par The communication with the database is handled using an Hibernate configuration and a JDBC Driver\cite{jdbc}. Communication with the MINIO storage is achieved through a MINIO Client\cite{minioClient}. It uses Jedis\cite{jedis}, a Java client for Redis Cache, to interact with the caching service.
+\par The communication with the database is handled using an Hibernate configuration and a JDBC Driver\cite{jdbc}. Communication with the MINIO storage is achieved through a MINIO Client\cite{minioClient}. Finally, uses Jedis\cite{jedis}, a Java client for Redis Cache, to interact with the caching service.
 
 
 

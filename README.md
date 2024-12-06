@@ -8,7 +8,29 @@ Victor Ditadi Perdigão -  70056 - v.perdigao@fct.unl.pt
 
 ## Usage
 
-### Creating the Docker image
+### Make file
+```make deploy``` it will automatically deploy in a minikube cluster<br>
+
+Additional steps, this assumes an alias from 'kubectl' to 'kc'
+```bash
+# Copy the output URL from this command (should be an IP Address)
+minikube service minio-service -n tukano
+# Edit the MINIO_EXTERNAL_URL value with it
+kc edit cm secrets
+# Delete the tukano pod so that it has access to the new variable
+kc delete pod tukano-rest-api-[actualpod]
+```
+
+#### Development
+If any changes to the code, there's no need to re-deploy the cluster
+```bash
+make tukano
+```
+And it will automatically update the deployment.
+
+
+### Manually
+#### Creating the Docker image
 Compile to generate the .war file:
 ```bash
 mvn clean compile package
@@ -28,7 +50,7 @@ docker push <docker_hub_username>/<name_image>
 
 ```<docker_hub_username>/<name_image>``` is the image value for the ```tukano_deployment.yaml``` file
 
-### Deploying the microservices (locally)
+#### Deploying the microservices (locally)
 The following commands assume you got some sort of alias from ```kubectl``` to ```kc```
 ```bash
 cd kubernetes

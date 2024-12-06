@@ -9,7 +9,7 @@ Victor Ditadi Perdigão -  70056 - v.perdigao@fct.unl.pt
 ## Usage
 
 ### Make file
-```make deploy``` it will automatically deploy in a minikube cluster<br>
+```make deploy DOCKERUSER=your_docker_username``` it will automatically deploy in a minikube cluster<br>
 
 Additional steps, this assumes an alias from 'kubectl' to 'kc'
 ```bash
@@ -24,7 +24,7 @@ kc delete pod tukano-rest-api-[actualpod]
 #### Development
 If any changes to the code, there's no need to re-deploy the cluster
 ```bash
-make tukano
+make tukano DOCKERUSER=your_docker_username
 ```
 And it will automatically update the deployment.
 

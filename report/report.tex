@@ -235,10 +235,7 @@ In this particular case there were some issues with testing, and some endpoints 
 
 \section{Future Work}
 \label{sec:FutWork}
-As mentioned in Realistic Flow (\ref{sec:realisticFlow}), there is an issue with some endpoints or the tests used to test this application, so it remains as future works to fix that issue and retest the application.
-\par Utilizing PostgreSQL to also store shorts, likes and follow information could also improve the overall structure of the database, however, as seen in Register User (\ref{sec:RegisterUser}), this may come at the cost of latency.
-\par Implement Serverless functions for counting views, this task was started but not concluded successfully.
-\par Implement geo replication for improving latency across different regions.
+As for future work, the main thing needed would be to change the ConfigMap that holds all the information for the microservices, including the passwords to a Kubernetes Secret, which much more secure for sharing sensitive information.
 
 \section{Challenges and Limitations}
 \label{sec: challengesLimit}

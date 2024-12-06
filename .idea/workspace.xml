@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="411cb475-e28f-4ab9-a228-7c91b4b5736e" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/Cache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -14,6 +15,9 @@
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaShorts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaShorts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tukano/impl/JavaUsers.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,8 +141,12 @@
       <workItem from="1732272873070" duration="598000" />
       <workItem from="1732314437660" duration="10629000" />
       <workItem from="1732829129059" duration="8943000" />
+<<<<<<< Updated upstream
       <workItem from="1732872087066" duration="3478000" />
       <workItem from="1732914613723" duration="7629000" />
+=======
+      <workItem from="1732872087066" duration="6001000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

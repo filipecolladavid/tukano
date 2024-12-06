@@ -1,0 +1,206 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage[font=small,skip=0pt]{caption}
+
+%\renewcommand{\section}{\section{\bold{#1}}
+
+\newcommand{\blankpage}{
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+}
+
+\usepackage[colorlinks=false]{hyperref}
+\hypersetup{%
+  colorlinks = true,
+  linkcolor  = black
+}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{booktabs}
+
+% maths
+\usepackage{bm}
+\usepackage{xspace}
+
+% algorithms
+\usepackage{algorithm,algpseudocode}
+\newcommand{\init}{\textbf{Init}\xspace}
+\newcommand{\dokw}{\textbf{do}\xspace}
+\newcommand{\upon}{\textbf{Upon}\xspace}
+\newcommand{\interface}{\textbf{Interface}\xspace}
+\newcommand{\crash}{\textbf{Crash}\xspace}
+\newcommand{\eventname}{\textbf{EventName}\xspace}
+\newcommand{\procname}{\textbf{ProcName}\xspace}
+\newcommand{\timename}{\textbf{TimeName}\xspace}
+\newcommand{\state}{\textbf{State}\xspace}
+\newcommand{\trigger}{\textbf{Trigger}\xspace}
+\newcommand{\requests}{\textbf{Requests}\xspace}
+\newcommand{\indications}{\textbf{Indications}\xspace}
+\newcommand{\proc}{\textbf{Procedure}\xspace}
+\newcommand{\timer}{\textbf{Timer}\xspace}
+\newcommand{\call}{\textbf{Call}\xspace}
+\newcommand{\return}{\textbf{Return}\xspace}
+\newcommand{\setup}{\textbf{Setup}\xspace}
+\newcommand{\periodic}{\textbf{Periodic}\xspace}
+\newcommand{\cancel}{\textbf{Cancel}\xspace}
+\newcommand{\receive}[3]{\textbf{Receiver} (\textbf{#1}, \emph{sender}, #2, #3)}
+\newcommand{\send}[3]{\textbf{Send} (\textbf{#1}, \emph{dest}, #2, #3)}
+\algblockdefx{Interface}{EndInterface}[1]{\interface #1}{\textbf{end} \interface}
+\algblockdefx{AlgState}{EndAlgState}[1]{\state #1}{\textbf{end} \state}
+\algblockdefx{Requests}{EndRequests}{\requests\textbf{:}}{}
+\algblockdefx{Indications}{EndIndications}{\indications\textbf{:}}{}
+\algblockdefx{Upon}{EndUpon}[1]{\upon #1 \algorithmicdo}{\textbf{end} \upon}
+\algblockdefx{Trigger}{EndTrigger}[1]{\trigger #1}{\textbf{end} \trigger}
+\algrenewcommand\textproc{}
+\algrenewcommand\algorithmicprocedure{\textbf{Procedure}}
+\makeatletter
+\newlength{\trianglerightwidth}
+\settowidth{\trianglerightwidth}{$\triangleright$~}
+\algnewcommand{\LineComment}[1]{\State \texttt{//} \textit{#1}}
+\algnewcommand{\LineCommentCont}[1]{\State%
+  \parbox[t]{\dimexpr\linewidth-\ALG@thistlm}{\hangindent=\trianglerightwidth \hangafter=1 \strut$\triangleright$ \emph{#1}\strut}}
+\makeatother
+\newcommand{\farg}[1]{\ensuremath{\textbf{arg}_{#1}}\xspace}
+
+% % Fonts
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+\def\course{Cloud Computing Systems}
+\def\coursePT{Sistemas de Computação Cloud}
+
+\def\titulo{TuKano Implementation leveraging Kubernetes}
+\title{\titulo}
+
+\def\data{\today}
+\date{\data}
+
+
+
+% Set your name here
+\def\name{Filipe Colla David and Victor Ditadi}
+\def\institution{
+Departamento de Inform{\'a}tica\\
+Faculdade de Ciências e Tecnologia\\
+Universidade NOVA de Lisboa}
+
+\author{\name\\ \institution}
+
+% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {Pseudocode, Link Abstractions}
+  pdftitle = {\course: Lab 1 Problem},
+  pdfsubject = {\course},
+  pdfpagemode = UseNone
+}
+
+\geometry{
+  body={6.5in, 9.0in},
+  left=1.0in,
+  top=1.0in
+}
+
+% Customize page headers
+\pagestyle{myheadings}
+\markright{\course - Project TuKano Kubernetes Report}
+\thispagestyle{empty}
+
+% Custom section fonts
+\usepackage{sectsty}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\sectionfont{\rmfamily\mdseries\Large\textbf}
+\subsectionfont{\rmfamily\mdseries\itshape\large}
+
+\begin{document}
+
+\pagenumbering{arabic} 
+
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+This document explains the implementation of TuKano App leveraging Azure Cloud Systems{\cite {azure}}. TuKano is a social network inspired in existing video sharing services, such as TikTok or Youtube Shorts. TuKano users can upload short videos to be viewed (and liked) by other users of the platform. The social network aspect of TuKano resides on having users follow other users, as the main way for the platform to populate the feed of shorts each user can visualize.
+\par The implementation of this application leverages different services, and the performance analysis of using the different services will be presented in Performance Analysis (\ref{sec:Perf}).
+
+\section{TuKano Application}
+\label{sec:application}
+
+\section{Architecture}
+\label{sec:architecture}
+
+\subsection{Automated Deployment}
+\label{sec:automatedDepl}
+
+\section{Performance Analysis}
+\label{sec:Perf}
+In this section there will be an analysis of the performance difference of the four different scenarios. To conduct these performance tests, the framework Artillery\cite{artillery} was used. This framework allows the programmer to test its application by creating several HTTP requests, once the experiment with the configured HTTP requests terminates, the framework outputs several statistics with the results obtained from the experiment.
+\par In the particular case of this application, for each scenario three tests were conducted:
+\begin{itemize}
+  \item \textbf{Register Users}: Consists in inserting and requesting multiple users. This test was divided into register an user, get the user registered, and update that same user, repeated for 200 users, over the span of 100 seconds. 
+  \item \textbf{Upload Shorts}: Consists in uploading and requesting multiple shorts. This test was divided into creating a short, and uploading a blob for that respective short. This process was repeated for 30 "shorts" over the span of 10 seconds, starting with one client\footnote{A client represents a simulated human that makes requests to complete the operations of the test}/second ramping up to five clients/second
+  \item \textbf{Realistic Flow}: Consists in making several HTTP requests to the application to test all the endpoints. Ran multiple requests over the span of 10 seconds, starting with one client/second ramping up to five clients/second.
+\end{itemize}
+  
+\subsection{Register User}
+\label{sec:RegisterUser}
+In the Figure \ref{fig:register_statistics}, we can observe the average response time and the minimum response time across the different scenarios. 
+\par When using a cache (nosql\_cache and sql\_cache) label we can observe that the average response time is lower when compared to the scenarios that don't use a cache (nosql\_nocache and sql\_nocache). This is an excepted behavior, since the cache stores, ideally, frequently used information and provides a faster response time when compared to a request made directly to the database. This is due to the reason of caches running in memory, and have much faster access times to the required data. However, they can't hold as much data as a normal database, that utilizes a disk to store its data, and cache misses will occur when the cache is full, which will represent a penalty for accessing the required data.
+\par There is also a significant difference between using SQL scenarios (sql\_nocache and sql\_cache) and NoSQL scenarios (nosql\_nocahce and nosql\_cache), this is usually the case since SQL queries are slower than NOSQL queries\cite{sqlNOSQLPerformance}.
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=\linewidth]{register_statistic.png}
+%   \caption{Register Response Time With Different Scenarios}
+%   \label{fig:register_statistics}
+% \end{figure}
+
+\subsection{Upload Shorts}
+\label{sec:UploadShorts}
+In the Figure \ref{fig:endpoints_comparison} we can see that the average doesn't change significantly over the four scenarios, this is the case since they all use the same mechanism to store shorts and blobs, and the cache is not being used to store blobs.
+
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=\linewidth]{response_times_comparison2.png}
+%   \caption{Average Response time for uploading Shorts}
+%   \label{fig:endpoints_comparison}
+% \end{figure}
+
+\subsection{Realistic Flow}
+\label{sec:realisticFlow}
+In this particular case there were some issues with testing, and some endpoints returned an HTTP response of 404 or 500, this issue wasn't discovered until the new extensive tests were done which was after the submission of the code. The functionalities affected were the ones related to likes, and getting shorts (note that this was correctly tested in the (\ref{sec:UploadShorts})). The true reason is yet unknown, however it might be due to some incompatibility between our implementation and the tests used, since the tests we ran previously detected no issue. Remains an objective for Future Work (\ref{sec:FutWork}).
+\par Despite the encountered issues, there is still some valuable information to analyze in Figure \ref{fig:realistic_flow}\footnote{Note: Due to the issues encountered, download\_short and like\_short are not valid results}, overall we can observe that using cache guarantees a faster average response time (when its being utilized, it's not the case for uploading blobs).
+
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=\linewidth]{realist_statistics_combined.png}
+%   \caption{Average Response time for uploading Shorts}
+%   \label{fig:realistic_flow}
+% \end{figure}
+
+\section{Future Work}
+\label{sec:FutWork}
+As mentioned in Realistic Flow (\ref{sec:realisticFlow}), there is an issue with some endpoints or the tests used to test this application, so it remains as future works to fix that issue and retest the application.
+\par Utilizing PostgreSQL to also store shorts, likes and follow information could also improve the overall structure of the database, however, as seen in Register User (\ref{sec:RegisterUser}), this may come at the cost of latency.
+\par Implement Serverless functions for counting views, this task was started but not concluded successfully.
+\par Implement geo replication for improving latency across different regions.
+
+\section{Challenges and Limitations}
+\label{sec: challengesLimit}
+\par Getting started with the development of the project presented itself as a great challenge for non Linux users. Multiple non compiler errors were found when testing using MacOS, which wrongly influenced some problem solving decisions, leading to considerable setbacks. A solution to those problems has yet to be found.
+\par Inconsistencies with the Azure Could infrastructure also influenced the course of the development of this project.
+
+\section {Conclusions}
+\label{sec:Conc}
+As mentioned in the Performance Analysis Section \ref{sec:Perf}, using a cache can be beneficial when developing an application like this, however, in the Azure Cloud System, this represents an added cost. Using SQL does improve the structuring of the databases, as mentioned in section \ref{sec:RegisterUser}, this can have a negative impact on latency\cite{sqlNOSQLPerformance}.
+
+\bibliography{biblio}
+\bibliographystyle{abbrv}
+
+\end{document}

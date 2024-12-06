@@ -127,17 +127,66 @@ Universidade NOVA de Lisboa}
 
 \section{Introduction}
 \label{sec:intro}
-This document explains the implementation of TuKano App leveraging Azure Cloud Systems{\cite {azure}}. TuKano is a social network inspired in existing video sharing services, such as TikTok or Youtube Shorts. TuKano users can upload short videos to be viewed (and liked) by other users of the platform. The social network aspect of TuKano resides on having users follow other users, as the main way for the platform to populate the feed of shorts each user can visualize.
-\par The implementation of this application leverages different services, and the performance analysis of using the different services will be presented in Performance Analysis (\ref{sec:Perf}).
+This document explains the implementation of the TuKano App leveraging Kubernetes{\cite {kubernetes}}. TuKano is a social network inspired in existing video sharing services, such as TikTok or Youtube Shorts. TuKano users can upload short videos to be viewed (and liked) by other users of the platform. The social network aspect of TuKano resides on having users follow other users, as the main way for the platform to populate the feed of shorts each user can visualize.
+\par The implementation of the application is divided will be divided into several microservices that will be managed by a Kubernetes Cluster. The performance analysis of using the different services will be presented in Section \ref{sec:Perf}.
 
 \section{TuKano Application}
 \label{sec:application}
+This application can be divided basically into three major logical components, Users, Shorts and Blobs. 
+\par The Users component holds all the logic for creating a user, deleting a user.
+\par The Shorts component holds all the logic for creating, deleting a Short. A Short is a data model that holds the information for regarding a specific video, that was uploaded to the application. This component also contains the logic for following and liking other users/shorts.
+\par The Blobs component holds all the logic for creating, deleting a blob.
+\par These components are all related, however there's a stronger correlation between a Short and Blob, since every short contains the URL for a specific blob.
 
-\section{Architecture}
+\section{Architecture and Behavior}
 \label{sec:architecture}
+This application is contained inside a Kubernetes Cluster, which manages the deployment, scaling, and operation of the microservices. As mentioned in the introduction, the application was divided into several microservices. 
+\subsection{Components, Microservices}
+As shown in Figure \ref{fig:tukano_architecture}, there are 5 major logical components, they are all defined as microservices, except for the ConfigMap, which complements the composition of these microservices, additionally each one has a service to allow them to be reached via a DNS entry, managed by the Kubernetes Control Plane, instead of using the private cluster IpAddress of that instance.
+\subsubsection{MINIO Service}
+Minio\cite{minio} is a high-performance, distributed object storage system. It is designed to handle large amounts of unstructured data, such as photos, videos, log files, backups, and container images, which makes it a perfect replacement for Azure Blob Storage. It has a PVC (persistent volume claim) attached to avoid losing any data in the event of a restart of this deployment and contains a LoadBalancer that exposes this microservice to outside the cluster.
+
+\subsubsection{PostgreSQL}
+This microservice serves as the main database of the application, where user, shorts, following, and likes information is stored. It is defined as a StatefulSet, which is common practice in the industry. It also has a PVC attached to prevent data loss in the event of a StatefulSet restart.
+
+\subsubsection{Redis Cache}
+This microservice is used to cache frequently accessed information and cookies for user authentication.
+
+\subsubsection{ConfigMap}
+This is an individual resource that holds all the necessary environmental variables for the application.
+
+\subsubsection{TuKano RestAPI}
+This is a microservice containing the central REST API of this application. It holds the logic for creating and removing users, managing shorts, and storing blobs.
+\par This microservice, in its essential form, consists of a pod with a Docker container that runs the Docker image defined in the repository of this project. This Docker image is built on top of \verb|tomcat:10.0-jdk17-openjdk-slim|, which allows it to run a Tomcat webserver that exposes a specific port for communication.
+\par The communication with the database is handled using an Hibernate configuration and a JDBC Driver\cite{jdbc}. Communication with the MINIO storage is achieved through a MINIO Client\cite{minioClient}. It uses Jedis\cite{jedis}, a Java client for Redis Cache, to interact with the caching service.
+
+
+
+\begin{figure*}[h]
+  \centering
+  \includegraphics[width=\textwidth]{TuKanoArch.png}
+  \caption{TuKano Application Architecture}
+  \label{fig:tukano_architecture}
+\end{figure*}
+
 
 \subsection{Automated Deployment}
 \label{sec:automatedDepl}
+In order to easily deploy this application, a Makefile program was developed. A deployment of an application like this, requires several steps, and doing it manually is error prone.
+The process:
+\begin{enumerate}
+  \itemsep0em 
+  \item Compile the TuKano Application;
+  \item Build the docker image and push it to the DockerHub;
+  \item Update the docker image on the TuKano microservice yaml definition;
+  \item Deploy every microservice available.
+\end{enumerate}
+As mentioned previously this process is mostly automated, however, there are some values from the ConfigMap that must be changed manually.
+
+\subsection{Behavior}
+\label{sec:behaviour}
+Each microservice, upon starting will have access to the "Secrets" ConfigMap that holds all the necessary environmental variables for the configuration of their state. This includes the connections strings to the Database, Cache and Minio Storage, as well as some passwords and additional configuration parameters. However, as previously mentioned, there is a parameter on the ConfigMap that must be changed, the external URL of the MINIO LoadBalancer. Since the attribution of this URL is dynamic, this manual extra step is needed in order to ensure that the shorts will be stored with the right address to its blob. This is achieved by editing the "Secrets" ConfigMap, and deleting the TuKano RestAPI pod afterwards, so that it updates it's values from the new ConfigMap.
+\par Once this initial configuration is complete, the application is ready to accept requests. As shown in Figure \ref{fig:tukano_architecture}, the TuKano Rest API is the central communication of the whole ecosystem, it communicates with the Database and the Cache to store the relational information of the users activity, and communicates with the MINIO storage microservice to store the blobs. The MINIO makes this blobs available through a LoadBalancer that exposes the service to the outside of the Kubernetes cluster.
 
 \section{Performance Analysis}
 \label{sec:Perf}

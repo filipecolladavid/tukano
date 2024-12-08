@@ -23,4 +23,5 @@ data:
   REDIS_HOST: "redis"
   REDIS_PASSWORD: "redis123"
   REDIS_PORT: "6379"
+  CACCHE: "true"
   # Apply the external IP ADDRESS of MINIO afterward.

@@ -220,6 +220,7 @@ function processVideoAddReply(requestParams, response, context, ee, next) {
             shortMap.set(short_details.id, short_details);
         }
         context.vars['blobUrl'] = short_details.blobUrl.split("/blobs/").at(-1)
+        console.log(context.vars["blobUrl"])
         saveShorts();
     }                                                                           
     return next();                                                              

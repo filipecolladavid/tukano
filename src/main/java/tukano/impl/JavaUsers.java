@@ -4,7 +4,6 @@ import static java.lang.String.format;
 import static tukano.api.Result.ErrorCode.*;
 import static tukano.api.Result.error;
 import static tukano.api.Result.errorOrResult;
-import static tukano.api.Result.errorOrValue;
 import static tukano.api.Result.ok;
 
 import java.util.List;
@@ -24,33 +23,37 @@ public class JavaUsers implements Users {
 	private static Logger Log = Logger.getLogger(JavaUsers.class.getName());
 	private final Cache cache;
 	private final Gson gson;
+	private final Boolean useCache;
 
 	private static final String USER_CACHE_KEY = "user:";
 	private static final String SEARCH_CACHE_KEY = "search:";
 
 	private static Users instance;
-	
+
 	synchronized public static Users getInstance() {
 		if( instance == null )
 			instance = new JavaUsers();
 		return instance;
 	}
-	
+
 	private JavaUsers() {
 		this.cache = Cache.getInstance();
 		this.gson = new Gson();
+		this.useCache = Boolean.valueOf(System.getenv("CACHE"));
 	}
-	
+
 	@Override
 	public Result<String> createUser(User user) {
 		Log.info(() -> format("createUser : %s\n", user));
 		if( badUserInfo( user ) )
-				return error(BAD_REQUEST);
+			return error(BAD_REQUEST);
 		try {
 			Result<User> newUser = DB.insertOne(user);
 			if(newUser.isOK()) {
-				setUserCache(newUser.value());
-				deleteSearchCache("");
+				if(useCache) {
+					setUserCache(newUser.value());
+					deleteSearchCache("");
+				}
 				return ok(newUser.value().getUserId());
 			}
 			return error(CONFLICT);
@@ -63,13 +66,17 @@ public class JavaUsers implements Users {
 	public Result<User> getUser(String userId, String pwd) {
 		if (userId == null)
 			return error(BAD_REQUEST);
-		User cachedUser = getUserFromCache(userId);
-		if( cachedUser != null ) {
-			Log.info(() -> format("Cache hit: getUser : userId = %s, pwd = %s\n", userId, pwd));
-			return validatedUserOrError(Result.ok(cachedUser),pwd);
+
+		if (useCache) {
+			User cachedUser = getUserFromCache(userId);
+			if (cachedUser != null) {
+				Log.info(() -> format("Cache hit: getUser : userId = %s, pwd = %s\n", userId, pwd));
+				return validatedUserOrError(Result.ok(cachedUser), pwd);
+			}
 		}
-		Log.info( () -> format("getUser : userId = %s, pwd = %s\n", userId, pwd));
-		return validatedUserOrError( DB.getOne( userId, User.class), pwd);
+
+		Log.info(() -> format("getUser : userId = %s, pwd = %s\n", userId, pwd));
+		return validatedUserOrError(DB.getOne(userId, User.class), pwd);
 	}
 
 	@Override
@@ -79,9 +86,9 @@ public class JavaUsers implements Users {
 		if (badUpdateUserInfo(userId, pwd, other))
 			return error(BAD_REQUEST);
 
-		return errorOrResult( validatedUserOrError(DB.getOne( userId, User.class), pwd), user -> {
+		return errorOrResult(validatedUserOrError(DB.getOne(userId, User.class), pwd), user -> {
 			Result<User> updatedUser = DB.updateOne(user.updateFrom(other));
-			if(updatedUser.isOK()) {
+			if(updatedUser.isOK() && useCache) {
 				setUserCache(updatedUser.value());
 				Log.info(() -> format("Cache updateUser : userId = %s, pwd = %s\n", userId, pwd));
 			}
@@ -93,17 +100,21 @@ public class JavaUsers implements Users {
 	public Result<User> deleteUser(String userId, String pwd) {
 		Log.info(() -> format("deleteUser : userId = %s, pwd = %s\n", userId, pwd));
 
-		if (userId == null || pwd == null )
+		if (userId == null || pwd == null)
 			return error(BAD_REQUEST);
 
-		return errorOrResult( validatedUserOrError(DB.getOne( userId, User.class), pwd), user -> {
-			deleteSearchCache(userId);
-			Executors.defaultThreadFactory().newThread( () -> {
+		return errorOrResult(validatedUserOrError(DB.getOne(userId, User.class), pwd), user -> {
+			if (useCache) {
+				deleteSearchCache(userId);
+				deleteUserCache(user);
+			}
+
+			Executors.defaultThreadFactory().newThread(() -> {
 				JavaShorts.getInstance().deleteAllShorts(userId, pwd, Token.get(userId));
 				JavaBlobs.getInstance().deleteAllBlobs(userId, Token.get(userId));
 			}).start();
-			
-			return DB.deleteOne( user);
+
+			return DB.deleteOne(user);
 		});
 	}
 
@@ -111,13 +122,15 @@ public class JavaUsers implements Users {
 	public Result<List<User>> searchUsers(String pattern) {
 		Log.info(() -> format("searchUsers : pattern = %s\n", pattern));
 		try {
-			List<User> cachedUsers = getFromSearchCache(pattern);
-			if (cachedUsers != null) {
-				Log.info(() -> format("search cache hit: pattern = %s\n", pattern));
+			if (useCache) {
+				List<User> cachedUsers = getFromSearchCache(pattern);
+				if (cachedUsers != null) {
+					Log.info(() -> format("search cache hit: pattern = %s\n", pattern));
 					return ok(cachedUsers);
+				}
+				Log.info(() -> format("search cache miss: pattern = %s\n", pattern));
 			}
 
-			Log.info(() -> format("search cache miss: pattern = %s\n", pattern));
 			String query;
 			if (pattern == null || pattern.isEmpty()) {
 				query = "SELECT * FROM \"users\" u";
@@ -131,8 +144,10 @@ public class JavaUsers implements Users {
 					.map(User::copyWithoutPassword)
 					.toList();
 
-			setSearchCache(pattern, hits);
-			Log.info(() -> format("search cache updated: pattern = %s\n", pattern));
+			if (useCache) {
+				setSearchCache(pattern, hits);
+				Log.info(() -> format("search cache updated: pattern = %s\n", pattern));
+			}
 
 			return ok(hits);
 
@@ -141,7 +156,6 @@ public class JavaUsers implements Users {
 			return error(INTERNAL_ERROR);
 		}
 	}
-
 
 	/**
 	 * Validates user password

@@ -1,5 +1,5 @@
 config:
-  target: http://127.0.0.1:51384/rest
+  target:  http://192.168.49.2:30667/rest
   plugins:
     metrics-by-endpoint: {} # Used to get metrics for each endpoint individually.
   processor: ./test-utils.js

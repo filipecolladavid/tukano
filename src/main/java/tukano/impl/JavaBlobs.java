@@ -70,7 +70,6 @@ public class JavaBlobs implements Blobs {
 	public Result<Void> upload(String blobId, byte[] bytes, String token) {
 		Log.info(() -> format("upload : blobId = %s, sha256 = %s, token = %s\n",
 				blobId, Hex.of(Hash.sha256(bytes)), token));
-
 		try {
 			minioClient.putObject(
 					PutObjectArgs.builder()
@@ -90,7 +89,8 @@ public class JavaBlobs implements Blobs {
 	@Override
 	public Result<byte[]> download(String blobId, String token) {
 		Log.info(() -> format("download : blobId = %s, token=%s\n", blobId, token));
-
+		if(blobId == null || token == null || blobId.isEmpty() || token.isEmpty() || blobId.equals("undefined") || token.equals("undefined"))
+			return error(BAD_REQUEST);
 		try {
 			GetObjectResponse response = minioClient.getObject(
 					GetObjectArgs.builder()

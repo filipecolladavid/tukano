@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: tukano
 spec:
   replicas: 1
   selector:
@@ -15,20 +16,25 @@ spec:
       containers:
         - name: redis
           image: redis:7.0-alpine
+          command: ["redis-server"]
           args: ["--requirepass", "$(REDIS_PASSWORD)"]
           ports:
             - containerPort: 6379
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: secrets
+                  key: REDIS_PASSWORD
           resources:
             limits:
               memory: 512Mi
-          envFrom:
-            - configMapRef:
-                name: secrets
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: redis
+  namespace: tukano
 spec:
   selector:
     app: redis

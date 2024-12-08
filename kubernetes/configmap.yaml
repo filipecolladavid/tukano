@@ -20,7 +20,7 @@ data:
   MINIO_EXTERNAL_URL: "http://127.0.0.1:63353"
   MINIO_ACCESS_KEY: "minio"
   MINIO_SECRET_KEY: "minio123"
-  REDIS_HOST: "redis.tukano.svc.cluster.local"
+  REDIS_HOST: "redis"
   REDIS_PASSWORD: "redis123"
   REDIS_PORT: "6379"
   # Apply the external IP ADDRESS of MINIO afterward.

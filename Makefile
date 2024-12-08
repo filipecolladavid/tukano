@@ -28,3 +28,15 @@ tukano:
 	$(if $(CLOUD),,minikube service tukano-rest-api -n tukano)
 	$(if $(CLOUD),,minikube service minio-service -n tukano)
 
+logs:
+	$(KUBECTL) logs -f -n tukano $$($(KUBECTL) get pods -n tukano -l app=tukano-webapp -o jsonpath='{.items[0].metadata.name}')
+
+pod-status:
+	$(KUBECTL) describe pod -n tukano $$($(KUBECTL) get pods -n tukano -l app=tukano-webapp -o jsonpath='{.items[0].metadata.name}')
+logs-all:
+	$(KUBECTL) logs -f -n tukano $$($(KUBECTL) get pods -n tukano -l app=tukano-webapp -o jsonpath='{.items[0].metadata.name}') --all-containers --previous
+logs-errors:
+	$(KUBECTL) logs -f -n tukano $$($(KUBECTL) get pods -n tukano -l app=tukano-webapp -o jsonpath='{.items[0].metadata.name}') --all-containers --previous
+
+test:
+	- mvn clean compile assembly:single && java -cp target/tukano-1-jar-with-dependencies.jar test.Test

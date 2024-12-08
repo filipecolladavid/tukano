@@ -20,7 +20,7 @@ public class RestAuthResource extends RestResource implements RestAuth {
     private static final String LOGIN_PAGE = "login.html";
     private static final int MAX_COOKIE_AGE = 3600;
     private static final String COOKIE_NAME = "TukanoSession";
-    private static final String REDIRECT_AFTER_LOGIN = "/rest/blobs";
+    private static final String REDIRECT_AFTER_LOGIN = "users";
 
     private final Users users;
     private final SessionManager sessionManager;

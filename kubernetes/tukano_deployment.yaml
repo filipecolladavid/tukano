@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: tukano-webapp
-          image: fdavidfctnova/tukano-webapp
+          image: vperdigao/tukano-webapp
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
